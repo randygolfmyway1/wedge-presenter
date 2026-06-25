@@ -40,7 +40,7 @@ button { font: inherit; }
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background: #e6ebee;
+  background: #fff;
   box-shadow: none;
 }
 .app-shell.legacy-menu-active .topbar,
@@ -48,6 +48,25 @@ button { font: inherit; }
   display: none;
 }
 .app-shell.legacy-menu-active #app {
+  width: 100%;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.app-shell.legacy-slide-active {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  box-shadow: none;
+}
+.app-shell.legacy-slide-active .topbar,
+.app-shell.legacy-slide-active .toolbar {
+  display: none;
+}
+.app-shell.legacy-slide-active #app {
   width: 100%;
   padding: 10px;
   display: grid;
@@ -130,7 +149,7 @@ p { line-height: 1.6; }
   overflow: hidden;
   color: #050505;
   background: #fff;
-  box-shadow: 0 12px 40px #1425312e;
+  box-shadow: none;
   container-type: inline-size;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -295,6 +314,168 @@ p { line-height: 1.6; }
   color: #fff;
   background: #aa2748;
   outline: 0;
+}
+
+.legacy-lesson-slide {
+  position: relative;
+  width: min(calc(100vw - 20px), calc((100vh - 20px) * 1.40831));
+  aspect-ratio: 983 / 698;
+  overflow: hidden;
+  color: #050505;
+  background: #fff;
+  box-shadow: none;
+  container-type: inline-size;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.legacy-slide-arcs,
+.legacy-slide-arcs::before {
+  position: absolute;
+  content: "";
+  width: 99%;
+  height: 62%;
+  border: 1.35cqw solid rgba(222, 211, 153, .53);
+  border-left-width: 5.7cqw;
+  border-radius: 50%;
+  transform: rotate(-14deg);
+}
+.legacy-slide-arcs {
+  left: 20%;
+  top: 5%;
+}
+.legacy-slide-arcs::before {
+  left: -4%;
+  top: 76%;
+  width: 100%;
+  height: 75%;
+  transform: rotate(0);
+}
+.legacy-lesson-slide > h1 {
+  position: absolute;
+  z-index: 3;
+  left: 6.5%;
+  top: 4.3%;
+  margin: 0;
+  color: #d80b43;
+  font-size: 4.27cqw;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.legacy-lesson-slide > h1 sup {
+  font-size: 1.47cqw;
+  vertical-align: top;
+}
+.legacy-slide-logo {
+  position: absolute;
+  z-index: 3;
+  right: 6.6%;
+  top: 6.6%;
+  width: 8.8cqw;
+  height: auto;
+}
+.objective-content {
+  position: absolute;
+  z-index: 3;
+  left: 8.5%;
+  top: 18%;
+  width: 82%;
+  font-size: 2.21cqw;
+}
+.objective-statement {
+  margin: 0 0 2.1cqw;
+  font-size: 3.43cqw;
+  line-height: 1.15;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: .9cqw;
+  align-items: start;
+  text-align: left;
+}
+.objective-statement span {
+  display: block;
+  white-space: nowrap;
+}
+.objective-statement strong,
+.objective-content h2 {
+  color: #d80b43;
+}
+.objective-content h2 {
+  margin: 0 0 .35cqw;
+  font-size: 2.87cqw;
+}
+.objective-content ol {
+  margin: 0;
+  padding-left: 3.8cqw;
+}
+.objective-content li {
+  margin: 0 0 1.1em;
+  padding-left: .2cqw;
+  line-height: 1.12;
+}
+.objective-content em {
+  color: #d80b43;
+  font-style: italic;
+}
+.legacy-t3-mark {
+  position: absolute;
+  z-index: 3;
+  left: 6.5%;
+  bottom: 8.5%;
+  color: #050505;
+  font-size: 4.48cqw;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -.3cqw;
+}
+.legacy-t3-mark sup {
+  font-size: 1.75cqw;
+  vertical-align: top;
+  letter-spacing: 0;
+}
+.legacy-slide-arrow {
+  position: absolute;
+  z-index: 5;
+  bottom: 10%;
+  border: 0;
+  padding: 0;
+  color: #9d2634;
+  background: transparent;
+  font-size: 2.1cqw;
+  line-height: 1;
+  cursor: pointer;
+}
+.legacy-slide-arrow.previous {
+  right: 12.8%;
+}
+.legacy-slide-arrow.next {
+  right: 9.2%;
+}
+.legacy-slide-footer {
+  position: absolute;
+  z-index: 5;
+  left: 12%;
+  right: 5.3%;
+  bottom: 0;
+  height: 4.5%;
+  display: flex;
+  align-items: end;
+  gap: .45cqw;
+}
+.legacy-slide-footer p {
+  margin: 0 auto .7cqw 0;
+  font-size: .62cqw;
+  line-height: 1;
+  white-space: nowrap;
+}
+.legacy-slide-footer button {
+  min-width: 7.1cqw;
+  border: 0;
+  border-radius: .35cqw .35cqw 0 0;
+  padding: .45cqw .7cqw;
+  color: #fff;
+  background: #075a9c;
+  font-size: 1.15cqw;
+  font-weight: 900;
 }
 
 .lesson-header { margin-bottom: 34px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }

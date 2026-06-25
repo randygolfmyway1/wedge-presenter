@@ -36,6 +36,7 @@ function navigate(next, push = true) {
 function render() {
   const index = screens.indexOf(current);
   document.querySelector(".app-shell").classList.toggle("legacy-menu-active", current === "menu");
+  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", current === "objective");
   progressBar.style.width = `${Math.max(0, index) / (screens.length - 1) * 100}%`;
   sectionLabel.textContent = current === "menu" ? "Main menu" : `The Wedge Workshop · ${index} of ${screens.length - 1}`;
   document.querySelector('[data-action="back"]').disabled = current === "menu" && historyStack.length === 0;
@@ -111,17 +112,28 @@ function menuScreen() {
 }
 
 function objectiveScreen() {
-  return `<section class="screen">
-    <header class="lesson-header"><span class="eyebrow">The Wedge Workshop</span><h1>The Wedge</h1></header>
-    <div class="objective-card">
-      <p class="objective"><strong>Objective:</strong> Learn how to break incumbent relationships to win new business.</p>
-      <h2>Workshop strategies</h2>
-      <ol class="strategy-list">
-        <li>Know where you are strong and where the competition is weak.</li>
-        <li>Help the prospect recognize how they are being underserved.</li>
-        <li>Use that hidden pain to challenge the incumbent relationship.</li>
-        <li>Test the prospect’s ability to make a change before investing in a proposal.</li>
+  return `<section class="legacy-lesson-slide objective-slide" aria-label="The Wedge Objective">
+    <div class="legacy-slide-arcs" aria-hidden="true"></div>
+    <h1>The Wedge<sup>®</sup></h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="objective-content">
+      <p class="objective-statement"><strong>Objective:</strong><span>Learn how to break incumbent relationships<br>to win new business.</span></p>
+      <h2>Workshop Strategies:</h2>
+      <ol>
+        <li>Know where <em>you</em> are strong and your <em>competition</em> is weak – which<br>leads to how the prospect is being underserved.</li>
+        <li>Learn a process to exploit the competition's weakness to get the<br>prospect to see how they are being underserved by the incumbent,<br>leading to their "pain".</li>
+        <li>Use that "pain" to break the relationship between your prospect<br>and the incumbent.</li>
+        <li>Test the prospect's ability to fire the incumbent and hire you,<br>before investing time developing a proposal.</li>
       </ol>
+    </div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-action="home" aria-label="Return to menu">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="company" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
     </div>
   </section>`;
 }
