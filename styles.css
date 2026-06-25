@@ -478,10 +478,6 @@ p { line-height: 1.6; }
   font-weight: 900;
 }
 
-.company-better-slide {
-  width: min(calc(100vw - 20px), calc((100vh - 20px) * 1.95112));
-  aspect-ratio: 1916 / 982;
-}
 .company-better-reference {
   position: absolute;
   inset: 0;
