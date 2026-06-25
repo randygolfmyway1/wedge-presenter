@@ -35,6 +35,25 @@ button { font: inherit; }
   background: var(--paper);
   box-shadow: var(--shadow);
 }
+.app-shell.legacy-menu-active {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #e6ebee;
+  box-shadow: none;
+}
+.app-shell.legacy-menu-active .topbar,
+.app-shell.legacy-menu-active .toolbar {
+  display: none;
+}
+.app-shell.legacy-menu-active #app {
+  width: 100%;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
 .topbar, .toolbar {
   display: flex;
   align-items: center;
@@ -102,6 +121,181 @@ p { line-height: 1.6; }
 .rings { position: absolute; inset: 10%; border: 36px solid rgba(222, 211, 153, .42); border-radius: 50% 43% 55% 42%; transform: rotate(-16deg); }
 .rings::after { content: ""; position: absolute; inset: 22%; border: 22px solid rgba(222, 211, 153, .42); border-radius: 50% 38% 52% 46%; }
 .hero-word { position: relative; font-size: clamp(4.5rem, 13vw, 11rem); font-weight: 950; letter-spacing: -.09em; color: var(--red); }
+
+.legacy-main-menu {
+  width: min(calc(100vw - 20px), calc((100vh - 20px) * 1.40831));
+  aspect-ratio: 983 / 698;
+  display: grid;
+  grid-template-columns: 24.4% 75.6%;
+  overflow: hidden;
+  color: #050505;
+  background: #fff;
+  box-shadow: 0 12px 40px #1425312e;
+  container-type: inline-size;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.legacy-menu-sidebar {
+  padding: 5.4cqw 1.85cqw 2cqw;
+  background: #a8cee2;
+}
+.legacy-menu-sidebar h1 {
+  margin: 0 0 6.4cqw;
+  color: #fff;
+  font-size: 2.05cqw;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.legacy-menu-groups {
+  display: grid;
+  gap: 2.45cqw;
+}
+.legacy-menu-group {
+  display: grid;
+  gap: .7cqw;
+  padding: 0 0 2.15cqw;
+  border-bottom: .12cqw solid #fff;
+}
+.legacy-menu-group:last-child {
+  border-bottom: 0;
+}
+.legacy-menu-group button,
+.legacy-menu-group a {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  color: #050505;
+  background: transparent;
+  text-align: left;
+  text-decoration: none;
+  font-size: 1.35cqw;
+  line-height: 1.1;
+  font-weight: 800;
+  cursor: pointer;
+}
+.legacy-menu-group button:hover,
+.legacy-menu-group button:focus-visible,
+.legacy-menu-group a:hover,
+.legacy-menu-group a:focus-visible {
+  color: #d80b43;
+  outline: 0;
+}
+.legacy-menu-group button.selected {
+  position: relative;
+  color: #d80b43;
+}
+.legacy-menu-group button.selected::before {
+  content: "";
+  position: absolute;
+  left: -1.5cqw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: .5cqw solid transparent;
+  border-bottom: .5cqw solid transparent;
+  border-left: .75cqw solid #d80b43;
+}
+.legacy-menu-canvas {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+.legacy-menu-canvas > h2 {
+  position: absolute;
+  z-index: 3;
+  left: 1.6%;
+  top: 4.7%;
+  margin: 0;
+  color: #d80b43;
+  font-size: 2.65cqw;
+  line-height: 1;
+  font-weight: 400;
+}
+.legacy-menu-arcs,
+.legacy-menu-arcs::before {
+  position: absolute;
+  content: "";
+  width: 99%;
+  height: 62%;
+  border: 1.35cqw solid rgba(222, 211, 153, .53);
+  border-left-width: 5.7cqw;
+  border-radius: 50%;
+  transform: rotate(-14deg);
+}
+.legacy-menu-arcs {
+  left: 29%;
+  top: 8%;
+}
+.legacy-menu-arcs::before {
+  left: -5%;
+  top: 75%;
+  width: 100%;
+  height: 75%;
+  transform: rotate(0);
+}
+.legacy-wedge-logo {
+  position: absolute;
+  z-index: 4;
+  right: 5.2%;
+  top: 7.4%;
+  width: 9.5cqw;
+  height: auto;
+}
+.legacy-menu-footer {
+  position: absolute;
+  z-index: 5;
+  left: .3%;
+  right: 4.7%;
+  bottom: 0;
+  height: 4.5%;
+  display: flex;
+  align-items: end;
+  gap: .5cqw;
+}
+.legacy-menu-footer p {
+  margin: 0 auto .7cqw 0;
+  font-size: .66cqw;
+  line-height: 1;
+  white-space: nowrap;
+}
+.legacy-menu-footer button {
+  min-width: 7.7cqw;
+  border: 0;
+  border-radius: .35cqw .35cqw 0 0;
+  padding: .45cqw .8cqw;
+  color: #fff;
+  background: #075a9c;
+  font-size: 1.25cqw;
+  font-weight: 900;
+}
+.legacy-submenu {
+  position: absolute;
+  z-index: 7;
+  left: 0;
+  top: 18.2%;
+  width: 29%;
+  display: grid;
+  gap: .18cqw;
+}
+.legacy-submenu button {
+  width: 100%;
+  min-height: 1.78cqw;
+  border: 0;
+  padding: .18cqw .5cqw;
+  color: #050505;
+  background: #c75b72;
+  text-align: left;
+  font-size: .82cqw;
+  line-height: 1.05;
+  font-weight: 700;
+  cursor: pointer;
+}
+.legacy-submenu button:hover,
+.legacy-submenu button:focus-visible {
+  color: #fff;
+  background: #aa2748;
+  outline: 0;
+}
 
 .lesson-header { margin-bottom: 34px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
 .objective-card { padding: clamp(24px, 5vw, 60px); border-radius: 24px; background: linear-gradient(135deg, #fff, #f8f4e7); box-shadow: var(--shadow); }

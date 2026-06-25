@@ -3,6 +3,7 @@ let current = "menu";
 let historyStack = [];
 let painStep = 0;
 let ladderExample = "Dairy section";
+let activeMenuSection = null;
 
 const app = document.querySelector("#app");
 const modal = document.querySelector("#modal");
@@ -34,6 +35,7 @@ function navigate(next, push = true) {
 
 function render() {
   const index = screens.indexOf(current);
+  document.querySelector(".app-shell").classList.toggle("legacy-menu-active", current === "menu");
   progressBar.style.width = `${Math.max(0, index) / (screens.length - 1) * 100}%`;
   sectionLabel.textContent = current === "menu" ? "Main menu" : `The Wedge Workshop · ${index} of ${screens.length - 1}`;
   document.querySelector('[data-action="back"]').disabled = current === "menu" && historyStack.length === 0;
@@ -45,20 +47,66 @@ function render() {
 }
 
 function menuScreen() {
-  return `<section class="screen menu-layout">
-    <div class="menu-card">
-      <span class="eyebrow">Modern rebuild · pilot</span>
-      <h1>Main menu</h1>
-      <p class="lead">A working replacement for the original Flash presenter. The first section below is active; the remaining sections show how the complete library will grow.</p>
-      <div class="menu-list">
-        <a class="menu-item sales-call-entry" href="sales-call.html"><span>Sales Call Structure — animated replica</span><span class="arrow">→</span></a>
-        <button class="menu-item" data-screen="objective"><span>The Wedge Workshop</span><span class="arrow">→</span></button>
-        <button class="menu-item" data-unavailable><span>Sales Leadership</span><span>Planned</span></button>
-        <button class="menu-item" data-unavailable><span>Red Hot Introductions</span><span>Planned</span></button>
-        <button class="menu-item" data-unavailable><span>Million Dollar Producer</span><span>Planned</span></button>
+  const wedgeItems = [
+    ["Objective", "objective"],
+    ["How Is Your Company Better?", "company"],
+    ["Survey Results", ""],
+    ["3 Major Components of Business", ""],
+    ["Locate Your Prospect's Pain", "pain"],
+    ["What Motivates People?", ""],
+    ["Hoover Dam", ""],
+    ["Ladder of Abstraction", "ladder"],
+    ["Differentiate", ""],
+    ["Know Your Competition", ""],
+    ["Pre-Call Strategy", ""],
+    ["Knowledge Is Power", ""],
+    ["Games and Zones", ""],
+    ["Rules of The Wedge", ""],
+    ["The Wedge Sales Process", ""],
+    ["How The Wedge Busts Incumbent Relationships", ""],
+    ["Conclusion", ""]
+  ];
+  const wedgeSubmenu = activeMenuSection === "wedge"
+    ? `<nav class="legacy-submenu" aria-label="The Wedge Workshop menu">
+        ${wedgeItems.map(([label, screen]) => screen
+          ? `<button data-screen="${screen}">${label}</button>`
+          : `<button data-unavailable>${label}</button>`).join("")}
+      </nav>`
+    : "";
+  return `<section class="legacy-main-menu" aria-label="Main menu">
+    <aside class="legacy-menu-sidebar">
+      <h1>main menu</h1>
+      <nav class="legacy-menu-groups" aria-label="Presenter sections">
+        <div class="legacy-menu-group">
+          <button data-unavailable>Sales Leadership™</button>
+          <button class="${activeMenuSection === "wedge" ? "selected" : ""}" data-menu-section="wedge">The Wedge Workshop™</button>
+          <button data-unavailable>Red Hot Introductions™</button>
+          <button data-unavailable>Million Dollar Producer™</button>
+          <button data-unavailable>Presenter™ - Custom</button>
+        </div>
+        <div class="legacy-menu-group">
+          <button data-unavailable>Prophet™</button>
+          <button data-unavailable>Differentiation/LOA</button>
+        </div>
+        <div class="legacy-menu-group">
+          <button data-unavailable>Wedge Sales Culture™</button>
+          <a href="sales-call.html">Wedge® Overview - MS</a>
+          <button data-unavailable>iWin™</button>
+          <button data-unavailable>Coach to the Coach™</button>
+        </div>
+      </nav>
+    </aside>
+    <section class="legacy-menu-canvas">
+      <h2>The Wedge Group: Presenter™</h2>
+      <img class="legacy-wedge-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+      <div class="legacy-menu-arcs" aria-hidden="true"></div>
+      ${wedgeSubmenu}
+      <div class="legacy-menu-footer">
+        <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+        <button data-action="calculator">calculator</button>
+        <button data-action="about">about</button>
       </div>
-    </div>
-    <div class="hero-art" aria-hidden="true"><div class="rings"></div><div class="hero-word">W</div></div>
+    </section>
   </section>`;
 }
 
@@ -157,6 +205,11 @@ function handleCalculator(key) {
 document.addEventListener("click", event => {
   const target = event.target.closest("button");
   if (!target) return;
+  if (target.dataset.menuSection) {
+    activeMenuSection = activeMenuSection === target.dataset.menuSection ? null : target.dataset.menuSection;
+    render();
+    return;
+  }
   if (target.dataset.screen) navigate(target.dataset.screen);
   if (target.hasAttribute("data-unavailable")) {
     modalContent.innerHTML = `<h2>Planned section</h2><p>This prototype proves the architecture with The Wedge Workshop first. This section will be migrated after the pilot is approved.</p>`;
