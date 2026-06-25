@@ -140,23 +140,13 @@ function objectiveScreen() {
 
 function companyScreen() {
   return `<section class="legacy-lesson-slide company-better-slide" aria-label="How Is Your Company Better?">
-    <div class="legacy-slide-arcs" aria-hidden="true"></div>
-    <h1>How is Your Company Better?</h1>
-    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
-    <p class="company-better-intro">If what you bring to the table is the same as what they already have, they don't need you.<br>They only need you for what you do different or better.</p>
-    <div class="company-better-grid" aria-label="Company differentiation four-quadrant worksheet">
-      <div></div><div></div><div></div><div></div>
-    </div>
-    <button class="pooge-button" data-action="open-pooge">POOGE</button>
-    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
-    <button class="legacy-slide-arrow previous" data-screen="objective" aria-label="Previous slide">◀</button>
-    <button class="legacy-slide-arrow next" data-screen="survey" aria-label="Next slide">▶</button>
-    <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
-      <button data-action="about">about</button>
-      <button data-action="home">close</button>
-    </div>
+    <img class="company-better-reference" src="assets/company-better-reference.png" alt="How Is Your Company Better? four-quadrant worksheet">
+    <button class="company-hotspot pooge-hotspot" data-action="open-pooge" aria-label="POOGE"></button>
+    <button class="company-hotspot previous-hotspot" data-screen="objective" aria-label="Previous slide"></button>
+    <button class="company-hotspot next-hotspot" data-screen="survey" aria-label="Next slide"></button>
+    <button class="company-hotspot calculator-hotspot" data-action="calculator" aria-label="calculator"></button>
+    <button class="company-hotspot about-hotspot" data-action="about" aria-label="about"></button>
+    <button class="company-hotspot close-hotspot" data-action="home" aria-label="close"></button>
     <section class="pooge-overlay" role="dialog" aria-modal="true" aria-label="POOGE" hidden>
       <div class="legacy-slide-arcs" aria-hidden="true"></div>
       <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
@@ -276,7 +266,7 @@ document.addEventListener("click", event => {
     }
     case "close-pooge": {
       document.querySelector(".pooge-overlay").hidden = true;
-      document.querySelector('[data-action="open-pooge"]').focus();
+      document.querySelector(".pooge-hotspot").focus();
       break;
     }
     case "close-modal": modal.close(); break;
