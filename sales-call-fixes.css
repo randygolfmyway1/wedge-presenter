@@ -867,3 +867,111 @@
 .sales-call-stage.worksheet-mode .legacy-footer span {
   visibility: hidden;
 }
+
+.philosophical-story-button {
+  position: absolute;
+  z-index: 7;
+  left: 15.3%;
+  top: 9.2%;
+  width: 4.1cqw;
+  height: 4.1cqw;
+  display: grid;
+  place-items: center;
+  border: .12cqw solid #d97600;
+  border-radius: 50% 50% 50% 8%;
+  padding: 0;
+  color: #fff;
+  background: linear-gradient(145deg, #ffbd42, #ec8000);
+  box-shadow: .18cqw .2cqw #00000035, inset .12cqw .15cqw #ffffff66;
+  transform: rotate(45deg);
+  font-size: 1.35cqw;
+  font-weight: 900;
+}
+
+.philosophical-story-button span {
+  display: block;
+  transform: rotate(-45deg);
+}
+
+.philosophical-story-button:hover,
+.philosophical-story-button:focus-visible {
+  background: linear-gradient(145deg, #ffd36e, #f29012);
+  outline: .22cqw solid #8452b5;
+  outline-offset: .18cqw;
+}
+
+.philosophical-story-dialog {
+  position: absolute;
+  z-index: 31;
+  left: 7.5%;
+  top: 10%;
+  width: 85%;
+  height: 78%;
+  overflow: hidden;
+  border: .12cqw solid #111;
+  border-radius: .8cqw;
+  padding: 5.5cqw 7cqw;
+  color: #111;
+  background: #fff;
+  box-shadow: 0 1cqw 3cqw #00000030;
+  animation: panel-in .26s ease both;
+}
+
+.philosophical-story-dialog h2 {
+  margin: 0 0 4.5cqw;
+  color: #d5002b;
+  font-size: 3.5cqw;
+  line-height: 1;
+  text-align: center;
+}
+
+.philosophical-story-content {
+  font-size: 3.1cqw;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.philosophical-story-content p {
+  margin: 0 0 2.6cqw;
+}
+
+.philosophical-story-content .story-lead {
+  color: #075a9c;
+  font-size: 3.8cqw;
+  font-weight: 900;
+}
+
+.philosophical-story-content .story-note {
+  color: #079b10;
+  font-size: 2.7cqw;
+  font-weight: 800;
+}
+
+.philosophical-story-close {
+  position: absolute;
+  right: 1.5%;
+  top: 2%;
+  width: 2.5cqw;
+  height: 2.5cqw;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  color: #fff;
+  background: #999;
+  font-size: 2cqw;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.philosophical-story-close:hover,
+.philosophical-story-close:focus-visible {
+  background: #d5002b;
+  outline: .2cqw solid #f0a51b;
+}
+
+.sales-call-stage.philosophical-story-mode .philosophical-story-button,
+.sales-call-stage.philosophical-story-mode .stage-tools {
+  visibility: hidden;
+}

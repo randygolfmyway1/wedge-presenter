@@ -171,6 +171,7 @@ const topFlow = document.querySelector("#top-flow");
 const bottomFlow = document.querySelector("#bottom-flow");
 const tools = document.querySelector("#stage-tools");
 const panel = document.querySelector("#teaching-panel");
+const philosophicalStoryButton = document.querySelector("#philosophical-story-button");
 
 function buildFlow(target, items) {
   target.innerHTML = items.map((item, index) => `${index ? '<span class="flow-arrow">→</span>' : ''}<button class="process-node ${item.family}" data-stage="${item.id}">${item.label}</button>`).join("");
@@ -391,6 +392,37 @@ function closeWedgeProcessWorksheet() {
   document.querySelector("#worksheet-overlay")?.remove();
   stage.classList.remove("worksheet-mode");
   state.tool = null;
+  renderState();
+}
+
+function openPhilosophicalStory() {
+  document.querySelector("#philosophical-story-dialog")?.remove();
+  panel.hidden = true;
+  tools.hidden = true;
+  stage.classList.add("philosophical-story-mode");
+
+  const story = document.createElement("section");
+  story.id = "philosophical-story-dialog";
+  story.className = "philosophical-story-dialog";
+  story.setAttribute("role", "dialog");
+  story.setAttribute("aria-modal", "true");
+  story.setAttribute("aria-labelledby", "philosophical-story-title");
+  story.innerHTML = `
+    <button class="philosophical-story-close" aria-label="Close Philosophical Story">×</button>
+    <h2 id="philosophical-story-title">Philosophical Story</h2>
+    <div class="philosophical-story-content">
+      <p class="story-lead">What do Buyers Deserve?</p>
+      <p>The Difference between Doctor and Dentist</p>
+      <p class="story-note">(reactive vs. proactive)</p>
+    </div>
+  `;
+  stage.appendChild(story);
+  story.querySelector(".philosophical-story-close").addEventListener("click", closePhilosophicalStory);
+}
+
+function closePhilosophicalStory() {
+  document.querySelector("#philosophical-story-dialog")?.remove();
+  stage.classList.remove("philosophical-story-mode");
   renderState();
 }
 
@@ -654,7 +686,9 @@ function bindPanelActions() {
 
 function clearAll() {
   document.querySelector("#worksheet-overlay")?.remove();
+  document.querySelector("#philosophical-story-dialog")?.remove();
   stage.classList.remove("worksheet-mode");
+  stage.classList.remove("philosophical-story-mode");
   state.active = null;
   state.tool = null;
   state.reactive = false;
@@ -688,4 +722,5 @@ tools.querySelectorAll("button").forEach(button => button.addEventListener("clic
 document.querySelector("#clear-button").addEventListener("click", clearAll);
 document.querySelector("#overview-button").addEventListener("click", overview);
 document.querySelectorAll("[data-utility]").forEach(button => button.addEventListener("click", () => utility(button.dataset.utility)));
+philosophicalStoryButton.addEventListener("click", openPhilosophicalStory);
 window.addEventListener("resize", () => state.active && renderState());
