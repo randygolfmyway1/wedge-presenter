@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sales Call Structure — Replica</title>
+  <link rel="stylesheet" href="sales-call.css">
+  <link rel="stylesheet" href="sales-call-fixes.css">
+</head>
+<body>
+  <main class="viewport">
+    <section id="sales-call-stage" class="sales-call-stage" aria-label="Sales Call Structure interactive diagram">
+      <div class="stage-label problem-label">Problem</div>
+      <div class="stage-label solution-label">Solution</div>
+      <div class="stage-label commitment-label">Commitment</div>
+      <div class="watermark" aria-hidden="true"><span>THE</span><strong>WEDGE</strong><i>.net</i></div>
+      <div id="top-flow" class="flow top-flow"></div>
+      <div class="decision-flow">
+        <button class="process-node neutral shelf" data-stage="shelf">Shelf</button>
+        <button class="diamond" data-stage="gestalt"><span>Tipping<br>Point</span></button>
+        <b class="decision-no">NO</b><b class="decision-yes">YES</b>
+        <button class="process-node neutral transition-branch" data-stage="transitionBranch">Transition</button>
+      </div>
+      <div id="bottom-flow" class="flow bottom-flow"></div>
+      <div id="stage-tools" class="stage-tools" hidden>
+        <button data-tool="objective" title="Objective">?</button>
+        <button data-tool="script" title="Example script">◕</button>
+        <button data-tool="media" title="Visual example">♟</button>
+        <button data-tool="more" title="More detail">+</button>
+      </div>
+      <section id="teaching-panel" class="teaching-panel" hidden aria-live="polite"></section>
+      <button id="clear-button" class="small-control clear-control">CLEAR</button>
+      <button id="overview-button" class="small-control overview-control">OVERVIEW</button>
+      <div class="legacy-footer">
+        <span>©Copyright 2004-2010 The Wedge Group. All rights reserved.</span>
+        <button data-utility="calculator">calculator</button><button data-utility="about">about</button><a href="index.html">close</a>
+      </div>
+    </section>
+  </main>
+  <dialog id="utility-dialog"><form method="dialog"><button class="dialog-x" aria-label="Close">×</button><h2 id="utility-title">About</h2><div id="utility-content"></div><button class="dialog-done">Close</button></form></dialog>
+  <script src="sales-call.js"></script>
+</body>
+</html>

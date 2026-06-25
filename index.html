@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Wedge Group Presenter — Modern Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-action="home" aria-label="Return to main menu">
+        <span class="brand-mark">W</span>
+        <span><strong>The Wedge Group</strong><small>Presenter prototype</small></span>
+      </button>
+      <div class="progress-wrap" aria-label="Section progress">
+        <span id="section-label">Main menu</span>
+        <div class="progress"><span id="progress-bar"></span></div>
+      </div>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="toolbar">
+      <div class="toolbar-group">
+        <button class="tool secondary" data-action="home">Home</button>
+        <button class="tool secondary" data-action="back">Back</button>
+      </div>
+      <div class="toolbar-group utility-actions">
+        <button class="tool ghost" data-action="calculator">Calculator</button>
+        <button class="tool ghost" data-action="about">About</button>
+        <button class="tool primary" data-action="next">Next</button>
+      </div>
+    </footer>
+  </div>
+
+  <dialog id="modal">
+    <button class="modal-close" data-action="close-modal" aria-label="Close dialog">×</button>
+    <div id="modal-content"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
