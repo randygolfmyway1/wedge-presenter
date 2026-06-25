@@ -547,10 +547,13 @@ p { line-height: 1.6; }
 .pooge-art {
   position: absolute;
   z-index: 3;
-  left: 17%;
-  top: 5%;
-  width: 59%;
-  height: auto;
+  left: 50%;
+  top: 46%;
+  width: auto;
+  height: 72%;
+  max-width: 68%;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
 }
 .pooge-footer {
   left: 12%;
