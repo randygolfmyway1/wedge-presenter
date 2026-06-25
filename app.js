@@ -1,4 +1,4 @@
-const screens = ["menu", "objective", "company", "pain", "ladder"];
+const screens = ["menu", "objective", "company", "survey", "components", "pain", "ladder"];
 let current = "menu";
 let historyStack = [];
 let painStep = 0;
@@ -36,13 +36,13 @@ function navigate(next, push = true) {
 function render() {
   const index = screens.indexOf(current);
   document.querySelector(".app-shell").classList.toggle("legacy-menu-active", current === "menu");
-  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", current === "objective");
+  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components"].includes(current));
   progressBar.style.width = `${Math.max(0, index) / (screens.length - 1) * 100}%`;
   sectionLabel.textContent = current === "menu" ? "Main menu" : `The Wedge Workshop · ${index} of ${screens.length - 1}`;
   document.querySelector('[data-action="back"]').disabled = current === "menu" && historyStack.length === 0;
   document.querySelector('[data-action="next"]').disabled = current === "ladder";
 
-  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, pain: painScreen, ladder: ladderScreen };
+  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, pain: painScreen, ladder: ladderScreen };
   app.innerHTML = templates[current]();
   app.focus({ preventScroll: true });
 }
@@ -139,19 +139,44 @@ function objectiveScreen() {
 }
 
 function companyScreen() {
-  const items = [
-    ["Your strengths", "Capabilities the prospect values and the incumbent cannot match."],
-    ["Incumbent strengths", "Areas where changing providers offers little benefit."],
-    ["Your gaps", "Risks to address honestly before proposing a solution."],
-    ["Unmet needs", "The strongest territory for differentiation and discovery."]
-  ];
-  return `<section class="screen">
-    <header class="lesson-header"><span class="eyebrow">Interactive exercise</span><h1>How is your company better?</h1><p class="lead">Click each quadrant to reveal the thinking behind it.</p></header>
-    <div class="quadrant-wrap">
-      <div><h2>Different—or better?</h2><p class="lead">If what you bring is the same as what the prospect already has, there is no compelling reason to change. Difference becomes valuable when it solves an unmet need.</p><button class="action-button" data-action="reveal-all">Reveal all</button></div>
-      <div class="quadrant">${items.map(([title, copy]) => `<button data-quadrant><strong>${title}</strong><span>${copy}</span></button>`).join("")}</div>
+  return `<section class="legacy-lesson-slide company-better-slide" aria-label="How Is Your Company Better?">
+    <div class="legacy-slide-arcs" aria-hidden="true"></div>
+    <h1>How is Your Company Better?</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <p class="company-better-intro">If what you bring to the table is the same as what they already have, they don't need you.<br>They only need you for what you do different or better.</p>
+    <div class="company-better-grid" aria-label="Company differentiation four-quadrant worksheet">
+      <div></div><div></div><div></div><div></div>
     </div>
+    <button class="pooge-button" data-action="open-pooge">POOGE</button>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="objective" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="survey" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+    <section class="pooge-overlay" role="dialog" aria-modal="true" aria-label="POOGE" hidden>
+      <div class="legacy-slide-arcs" aria-hidden="true"></div>
+      <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+      <img class="pooge-art" src="assets/pooge.png" alt="No POOGE">
+      <div class="legacy-slide-footer pooge-footer">
+        <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+        <button data-action="calculator">calculator</button>
+        <button data-action="about">about</button>
+        <button data-action="close-pooge">close</button>
+      </div>
+    </section>
   </section>`;
+}
+
+function surveyScreen() {
+  return `<section class="legacy-lesson-slide"><h1>Survey Results</h1></section>`;
+}
+
+function componentsScreen() {
+  return `<section class="legacy-lesson-slide"><h1>3 MAJOR COMPONENTS OF BUSINESS</h1></section>`;
 }
 
 function painScreen() {
@@ -243,6 +268,17 @@ document.addEventListener("click", event => {
     case "next": navigate(screens[Math.min(screens.length - 1, screens.indexOf(current) + 1)]); break;
     case "about": openAbout(); break;
     case "calculator": openCalculator(); break;
+    case "open-pooge": {
+      const overlay = document.querySelector(".pooge-overlay");
+      overlay.hidden = false;
+      overlay.querySelector('[data-action="close-pooge"]').focus();
+      break;
+    }
+    case "close-pooge": {
+      document.querySelector(".pooge-overlay").hidden = true;
+      document.querySelector('[data-action="open-pooge"]').focus();
+      break;
+    }
     case "close-modal": modal.close(); break;
     case "reveal-all": document.querySelectorAll("[data-quadrant]").forEach(el => el.classList.add("revealed")); break;
     case "pain-clear": painStep = 0; render(); break;
