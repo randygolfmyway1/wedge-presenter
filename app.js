@@ -6,6 +6,7 @@ let ladderExample = "Dairy section";
 let activeMenuSection = null;
 let suppressPainModelClickUntil = 0;
 const painChoiceClasses = ["checked-cost", "checked-time", "checked-resource", "checked-capability", "checked-effort"];
+const painXoutClasses = ["xout-cost", "xout-time", "xout-resource", "xout-capability", "xout-effort"];
 
 const app = document.querySelector("#app");
 const modal = document.querySelector("#modal");
@@ -62,7 +63,17 @@ function revealPainModel(slide, reveal) {
 
 function checkPainChoice(slide, choice) {
   if (!slide || !choice) return;
+  const isXoutPass = slide.classList.contains("show-problem-x") || painXoutClasses.some(name => slide.classList.contains(name));
+  if (isXoutPass) {
+    slide.classList.remove("show-problem-x");
+    slide.classList.add(`xout-${choice}`);
+    if (painXoutClasses.every(name => slide.classList.contains(name))) {
+      revealPainModel(slide, "no-solution");
+    }
+    return;
+  }
   if (choice === "effort" && !slide.classList.contains("show-fix")) {
+    slide.classList.add("checked-effort");
     revealPainModel(slide, "fix");
     return;
   }
@@ -79,7 +90,7 @@ function revealPainModelFromPoint(slide, clientX, clientY) {
   const y = (clientY - rect.top) / rect.height;
 
   if (x >= .63 && x <= .80 && y >= .88 && y <= .97) {
-    slide.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-problem-x", "show-no-solution", "show-forget", "show-condition", ...painChoiceClasses);
+    slide.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-problem-x", "show-no-solution", "show-forget", "show-condition", ...painChoiceClasses, ...painXoutClasses);
     return true;
   }
   if (x >= .92 && y >= .53) {
@@ -326,11 +337,11 @@ function painModelScreen() {
     <img class="pain-model-base" src="assets/hidden-pain-base.png" alt="Locating your prospect's hidden pain">
     <div class="pain-model-reveals" aria-hidden="true">
       <div class="pain-checklist">
-        <button class="pain-choice pain-choice-cost" data-pain-choice="cost"><span>1.</span> cost</button>
-        <button class="pain-choice pain-choice-time" data-pain-choice="time"><span>2.</span> time</button>
-        <button class="pain-choice pain-choice-resource" data-pain-choice="resource"><span>3.</span> resource</button>
-        <button class="pain-choice pain-choice-capability" data-pain-choice="capability"><span>4.</span> capability</button>
-        <button class="pain-choice pain-choice-effort" data-pain-choice="effort"><span>5.</span> effort</button>
+        <button class="pain-choice pain-choice-cost" data-pain-choice="cost"><span class="pain-box"></span><span class="pain-number">1.</span> cost</button>
+        <button class="pain-choice pain-choice-time" data-pain-choice="time"><span class="pain-box"></span><span class="pain-number">2.</span> time</button>
+        <button class="pain-choice pain-choice-resource" data-pain-choice="resource"><span class="pain-box"></span><span class="pain-number">3.</span> resource</button>
+        <button class="pain-choice pain-choice-capability" data-pain-choice="capability"><span class="pain-box"></span><span class="pain-number">4.</span> capability</button>
+        <button class="pain-choice pain-choice-effort" data-pain-choice="effort"><span class="pain-box"></span><span class="pain-number">5.</span> effort</button>
       </div>
       <div class="pain-question">?</div>
       <div class="pain-arrow pain-arrow-to-problem">➜</div>
@@ -339,18 +350,18 @@ function painModelScreen() {
       <div class="pain-arrow pain-arrow-to-solution">➜</div>
       <div class="pain-solution-block">SOLUTION</div>
       <div class="pain-fix-block">Fix It</div>
-      <div class="pain-fix-arrows"><span>↕</span><span>↑</span></div>
+      <div class="pain-fix-arrows"><span>↑</span></div>
+      <div class="pain-arrow pain-arrow-to-no-solution">➜</div>
       <div class="pain-no-solution-block">NO SOLUTION</div>
+      <div class="pain-down-arrow pain-arrow-to-forget">↓</div>
       <div class="pain-forget-block">Forget It</div>
       <div class="pain-condition-label">CONDITION</div>
-      <div class="pain-brain">
-        <span class="brain-active">ACTIVE</span>
-        <span class="brain-latent">LATENT</span>
-      </div>
     </div>
     <button class="pain-model-hotspot pain-model-man" data-pain-reveal="problem" aria-label="Reveal problem"></button>
+    <button class="pain-model-hotspot pain-model-question-button" data-pain-reveal="bubble" aria-label="Reveal hidden pain checklist"></button>
     <button class="pain-model-hotspot pain-model-problem-button" data-pain-reveal="solution" aria-label="Reveal solution"></button>
     <button class="pain-model-hotspot pain-model-solution-button" data-pain-reveal="fix" aria-label="Reveal fix it"></button>
+    <button class="pain-model-hotspot pain-model-fix-button" data-pain-reveal="problem-x" aria-label="Cross out problem"></button>
     <button class="pain-model-hotspot pain-model-no-solution-button" data-pain-reveal="forget" aria-label="Reveal no solution"></button>
     <button class="pain-model-hotspot pain-model-condition-button" data-pain-reveal="condition" aria-label="Reveal condition"></button>
     <button class="pain-model-hotspot pain-model-clear" data-action="pain-model-clear" aria-label="Clear"></button>
@@ -464,7 +475,7 @@ document.addEventListener("click", event => {
     case "pain-clear": painStep = 0; render(); break;
     case "pain-reveal": painStep = painStep >= 3 ? 0 : painStep + 1; render(); break;
     case "pain-model-clear": {
-      target.closest(".pain-model-slide")?.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-problem-x", "show-no-solution", "show-forget", "show-condition", ...painChoiceClasses);
+      target.closest(".pain-model-slide")?.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-problem-x", "show-no-solution", "show-forget", "show-condition", ...painChoiceClasses, ...painXoutClasses);
       break;
     }
     case "components-clear": {
