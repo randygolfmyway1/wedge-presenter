@@ -293,8 +293,15 @@ p { line-height: 1.6; }
   left: 0;
   top: 18.2%;
   width: 29%;
-  display: grid;
+  display: none;
   gap: .18cqw;
+}
+.legacy-submenu.open,
+.legacy-submenu:hover,
+.legacy-submenu:focus-within,
+.legacy-main-menu:has([data-menu-section="wedge"]:hover) .legacy-submenu,
+.legacy-main-menu:has([data-menu-section="wedge"]:focus-visible) .legacy-submenu {
+  display: grid;
 }
 .legacy-submenu button {
   width: 100%;
