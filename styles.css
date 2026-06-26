@@ -871,127 +871,102 @@ p { line-height: 1.6; }
 }
 .pain-checklist {
   position: absolute;
-  left: 28.3%;
-  top: 33.7%;
-  width: 10.6%;
-  padding: .38cqw .55cqw;
-  border: .1cqw solid #d8d8d8;
-  background: rgba(255, 255, 255, .92);
-  color: #111;
-  font-size: 1cqw;
-  line-height: 1.28;
+  left: 29.4%;
+  top: 35.6%;
+  width: 14.7%;
+  aspect-ratio: 144 / 86;
+  padding: 0;
+  border: 0;
+  background: url("assets/pain-bubble.png") 0 0 / contain no-repeat;
+  font-size: 0;
 }
 .pain-checklist label {
-  display: block;
+  display: none;
 }
 .pain-checklist span {
-  display: inline-grid;
-  place-items: center;
-  width: .9cqw;
-  height: .9cqw;
-  margin-right: .35cqw;
-  border: .08cqw solid #999;
-  color: #333;
-  font-size: .75cqw;
-  line-height: 1;
+  display: none;
 }
 .pain-question {
   position: absolute;
-  left: 41.2%;
-  top: 38.1%;
+  left: 44.1%;
+  top: 40.4%;
   color: #050505;
-  font-size: 4.1cqw;
+  font-size: 3.25cqw;
   font-weight: 900;
   line-height: 1;
 }
 .pain-arrow {
   position: absolute;
   color: #050505;
-  font-size: 5.7cqw;
+  font-size: 4.25cqw;
   line-height: 1;
   font-weight: 900;
 }
 .pain-arrow-to-problem {
-  left: 44.8%;
-  top: 56.4%;
+  left: 46.5%;
+  top: 57.4%;
 }
 .pain-arrow-to-solution {
-  left: 64.3%;
-  top: 56.4%;
+  left: 62.7%;
+  top: 57.4%;
 }
 .pain-problem-block {
   position: absolute;
-  left: 55.8%;
-  top: 42.6%;
-  width: 6.2%;
-  height: 55.2%;
-  display: grid;
-  place-items: center;
-  background: #cf626b;
+  left: 56%;
+  top: 42.1%;
+  width: 5.6%;
+  aspect-ratio: 55 / 368;
+  background: url("assets/pain-problem.png") 0 0 / contain no-repeat;
 }
 .pain-problem-block span {
-  color: #050505;
-  font-size: 3.15cqw;
-  font-weight: 900;
-  letter-spacing: .04cqw;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+  display: none;
 }
 .pain-solution-block,
 .pain-no-solution-block {
   position: absolute;
-  display: grid;
-  place-items: center;
-  color: #050505;
-  background: #80e5ad;
-  font-size: 2.75cqw;
-  font-weight: 900;
+  font-size: 0;
 }
 .pain-solution-block {
-  left: 73.8%;
-  top: 59.5%;
-  width: 23.9%;
-  height: 6.7%;
+  left: 70.6%;
+  top: 57.7%;
+  width: 16.1%;
+  aspect-ratio: 198 / 50;
+  background: url("assets/pain-solution.png") 0 0 / contain no-repeat;
 }
 .pain-no-solution-block {
-  left: 4%;
-  top: 76.6%;
-  width: 20%;
-  height: 7.1%;
-  font-size: 2.2cqw;
+  left: 31.2%;
+  top: 64%;
+  width: 16.1%;
+  aspect-ratio: 198 / 49;
+  background: url("assets/pain-nosolution.png") 0 0 / contain no-repeat;
 }
 .pain-fix-block,
 .pain-forget-block {
   position: absolute;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  background: #8179b8;
-  font-size: 2.25cqw;
-  font-weight: 900;
+  font-size: 0;
 }
 .pain-fix-block {
-  left: 74%;
-  top: 42%;
-  width: 22.5%;
-  height: 7.3%;
-  border-radius: 999px;
+  left: 71.2%;
+  top: 42.4%;
+  width: 15.6%;
+  aspect-ratio: 189 / 64;
+  background: url("assets/pain-fixit.png") 0 0 / contain no-repeat;
 }
 .pain-forget-block {
-  left: 3.9%;
-  top: 91.3%;
-  width: 19.4%;
-  height: 8.8%;
-  border-radius: 50%;
+  left: 31.7%;
+  top: 73.2%;
+  width: 15.6%;
+  aspect-ratio: 189 / 65;
+  background: url("assets/pain-forgetit.png") 0 0 / contain no-repeat;
 }
 .pain-fix-arrows {
   position: absolute;
-  left: 84.1%;
-  top: 49.2%;
+  left: 77.9%;
+  top: 49%;
   display: flex;
-  gap: 1.1cqw;
+  gap: .8cqw;
   color: #050505;
-  font-size: 5.4cqw;
+  font-size: 3.75cqw;
   line-height: .9;
   font-weight: 900;
 }

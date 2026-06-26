@@ -405,6 +405,10 @@ document.addEventListener("click", event => {
     if (painModelSlide) revealPainModelFromPoint(painModelSlide, event.clientX, event.clientY);
     return;
   }
+  if (painModelSlide && target.classList.contains("pain-model-hotspot") && !target.dataset.action && !target.dataset.screen) {
+    revealPainModelFromPoint(painModelSlide, event.clientX, event.clientY);
+    return;
+  }
   if (target.dataset.menuSection) {
     return;
   }
