@@ -709,18 +709,19 @@ p { line-height: 1.6; }
 }
 .service-line {
   position: absolute;
-  left: 69%;
-  top: 0;
+  top: .15cqw;
   width: .13cqw;
-  height: 14.4cqw;
+  height: 14.8cqw;
   background: #050505;
   transform-origin: top center;
 }
 .reactive-line {
-  transform: rotate(61deg);
+  left: 69%;
+  transform: rotate(55deg);
 }
 .proactive-line {
-  transform: rotate(-34deg);
+  left: 69%;
+  transform: rotate(-35deg);
 }
 .service-oval {
   position: absolute;
@@ -733,7 +734,7 @@ p { line-height: 1.6; }
   border-radius: 50%;
   color: #050505;
   background: rgba(255, 255, 255, .82);
-  font-size: 3.05cqw;
+  font-size: 2.15cqw;
   line-height: 1;
   font-weight: 900;
   cursor: pointer;
