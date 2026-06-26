@@ -941,27 +941,43 @@ p { line-height: 1.6; }
 }
 .pain-question {
   position: absolute;
-  left: 44.1%;
-  top: 40.4%;
+  left: 44.9%;
+  top: 34.2%;
   color: #050505;
-  font-size: 3.25cqw;
+  font-size: 3.65cqw;
   font-weight: 900;
   line-height: 1;
 }
 .pain-arrow {
   position: absolute;
-  color: #050505;
-  font-size: 4.25cqw;
-  line-height: 1;
-  font-weight: 900;
+  width: 17.1%;
+  height: .24cqw;
+  background: #050505;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+  transform: translateY(-50%);
+}
+.pain-arrow::after {
+  content: "";
+  position: absolute;
+  right: -1.05cqw;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-top: .72cqw solid transparent;
+  border-bottom: .72cqw solid transparent;
+  border-left: 1.25cqw solid #050505;
+  transform: translateY(-50%);
 }
 .pain-arrow-to-problem {
-  left: 46.5%;
-  top: 57.4%;
+  left: 35.8%;
+  top: 58.5%;
 }
 .pain-arrow-to-solution {
-  left: 62.7%;
-  top: 57.4%;
+  left: 63.7%;
+  top: 58.5%;
+  width: 8.5%;
 }
 .pain-problem-block {
   position: absolute;
