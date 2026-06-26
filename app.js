@@ -51,8 +51,8 @@ function menuScreen() {
   const wedgeItems = [
     ["Objective", "objective"],
     ["How Is Your Company Better?", "company"],
-    ["Survey Results", ""],
-    ["3 Major Components of Business", ""],
+    ["Survey Results", "survey"],
+    ["3 Major Components of Business", "components"],
     ["Locate Your Prospect's Pain", "pain"],
     ["What Motivates People?", ""],
     ["Hoover Dam", ""],
@@ -162,11 +162,70 @@ function companyScreen() {
 }
 
 function surveyScreen() {
-  return `<section class="legacy-lesson-slide"><h1>Survey Results</h1></section>`;
+  const rows = [
+    "Reputation",
+    "Quality",
+    "Great Solutions",
+    "Products",
+    "Services",
+    "Technology",
+    "Customer Service",
+    "Competitive Pricing"
+  ];
+  const competitors = ["Competitor 1", "Competitor 2", "Competitor 3", "Competitor 4", "Competitor 5", "Competitor 6", "Competitor 7"];
+  return `<section class="legacy-lesson-slide survey-slide" aria-label="Survey Results">
+    <div class="legacy-slide-arcs" aria-hidden="true"></div>
+    <h1>Survey Results</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="survey-table-wrap">
+      <table class="survey-table" aria-label="Competitor survey results">
+        <thead>
+          <tr>
+            <th class="survey-row-label"></th>
+            ${competitors.map(label => `<th><span>${label}</span></th>`).join("")}
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map(row => `<tr>
+            <th>${row}</th>
+            ${competitors.map(() => `<td aria-label="checked">✔</td>`).join("")}
+          </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+    <p class="survey-note">If there is no realization of a problem, there is no need for a solution.</p>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="company" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="components" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
 }
 
 function componentsScreen() {
-  return `<section class="legacy-lesson-slide"><h1>3 MAJOR COMPONENTS OF BUSINESS</h1></section>`;
+  return `<section class="legacy-lesson-slide components-slide" aria-label="3 Major Components of Business">
+    <div class="legacy-slide-arcs" aria-hidden="true"></div>
+    <h1>3 MAJOR COMPONENTS OF BUSINESS</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="components-boxes">
+      <button data-component="price">Price</button>
+      <button data-component="coverage">Coverage</button>
+      <button data-component="service">Service</button>
+    </div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="survey" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="pain" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
 }
 
 function painScreen() {

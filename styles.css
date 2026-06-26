@@ -559,6 +559,106 @@ p { line-height: 1.6; }
   left: 12%;
 }
 
+.survey-slide > h1,
+.components-slide > h1 {
+  left: 6.8%;
+  top: 5.9%;
+  font-size: 2.9cqw;
+  line-height: 1;
+}
+.survey-table-wrap {
+  position: absolute;
+  z-index: 4;
+  left: 18.1%;
+  top: 23.7%;
+  width: 54.8%;
+  height: 54.1%;
+}
+.survey-table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: #050505;
+  background: rgba(255, 255, 255, .68);
+  font-size: 1.02cqw;
+  line-height: 1;
+}
+.survey-table th,
+.survey-table td {
+  border: .12cqw solid #111;
+}
+.survey-table thead th {
+  height: 14%;
+  border-top: 0;
+  border-left: .12cqw solid #111;
+  border-right: .12cqw solid #111;
+  border-bottom: .12cqw solid #111;
+  background: transparent;
+  font-weight: 400;
+  vertical-align: bottom;
+  overflow: visible;
+}
+.survey-table thead th:first-child {
+  width: 37.8%;
+  border: 0;
+  border-bottom: .12cqw solid #111;
+}
+.survey-table thead th span {
+  display: block;
+  width: 7.7cqw;
+  transform: translate(.55cqw, -1.15cqw) rotate(-78deg);
+  transform-origin: left bottom;
+  white-space: nowrap;
+}
+.survey-table tbody th {
+  width: 37.8%;
+  padding-left: 2.2cqw;
+  text-align: left;
+  font-weight: 400;
+  background: rgba(255, 255, 255, .48);
+}
+.survey-table tbody td {
+  width: 8.9%;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 2.05cqw;
+  font-family: Arial Black, Arial, Helvetica, sans-serif;
+  font-weight: 950;
+  line-height: .8;
+}
+.survey-note {
+  position: absolute;
+  z-index: 4;
+  left: 26.1%;
+  bottom: 8.2%;
+  margin: 0;
+  color: #050505;
+  font-size: 1.45cqw;
+  line-height: 1;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.components-boxes {
+  position: absolute;
+  z-index: 4;
+  left: 20%;
+  top: 44.5%;
+  width: 63%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2cqw;
+}
+.components-boxes button {
+  aspect-ratio: 1.52 / 1;
+  border: .12cqw solid #333;
+  color: #050505;
+  background: rgba(255, 255, 255, .72);
+  font-size: 1.78cqw;
+  font-weight: 900;
+  cursor: pointer;
+}
+
 .lesson-header { margin-bottom: 34px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
 .objective-card { padding: clamp(24px, 5vw, 60px); border-radius: 24px; background: linear-gradient(135deg, #fff, #f8f4e7); box-shadow: var(--shadow); }
 .objective { font-size: clamp(1.35rem, 3vw, 2.3rem); line-height: 1.35; }
