@@ -941,8 +941,8 @@ p { line-height: 1.6; }
 }
 .pain-question {
   position: absolute;
-  left: 43.6%;
-  top: 34.4%;
+  left: 38.9%;
+  top: 31.8%;
   color: #050505;
   font-size: 3.65cqw;
   font-weight: 900;
@@ -1041,9 +1041,9 @@ p { line-height: 1.6; }
   text-shadow: none;
 }
 .pain-solution-block {
-  left: 63.9%;
+  left: 67.2%;
   top: 54.8%;
-  width: 17.2%;
+  width: 19.2%;
 }
 .pain-no-solution-block {
   left: 62.2%;
@@ -1154,9 +1154,9 @@ p { line-height: 1.6; }
   height: 55%;
 }
 .pain-model-solution-button {
-  left: 62.8%;
+  left: 66.2%;
   top: 41%;
-  width: 22%;
+  width: 22.5%;
   height: 28%;
 }
 .pain-model-no-solution-button {
