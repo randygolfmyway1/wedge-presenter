@@ -179,6 +179,7 @@ p { line-height: 1.6; }
 }
 .legacy-menu-group button,
 .legacy-menu-group a {
+  position: relative;
   width: 100%;
   border: 0;
   padding: 0;
@@ -213,6 +214,14 @@ p { line-height: 1.6; }
   border-top: .5cqw solid transparent;
   border-bottom: .5cqw solid transparent;
   border-left: .75cqw solid #d80b43;
+}
+.legacy-menu-group button[data-menu-section="wedge"]::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: -.25cqw;
+  width: 2.5cqw;
+  height: calc(100% + .5cqw);
 }
 .legacy-menu-canvas {
   position: relative;
@@ -296,11 +305,10 @@ p { line-height: 1.6; }
   display: none;
   gap: .18cqw;
 }
-.legacy-submenu.open,
 .legacy-submenu:hover,
 .legacy-submenu:focus-within,
 .legacy-main-menu:has([data-menu-section="wedge"]:hover) .legacy-submenu,
-.legacy-main-menu:has([data-menu-section="wedge"]:focus-visible) .legacy-submenu {
+.legacy-main-menu:has([data-menu-section="wedge"]:focus) .legacy-submenu {
   display: grid;
 }
 .legacy-submenu button {

@@ -67,7 +67,7 @@ function menuScreen() {
     ["How The Wedge Busts Incumbent Relationships", ""],
     ["Conclusion", ""]
   ];
-  const wedgeSubmenu = `<nav class="legacy-submenu ${activeMenuSection === "wedge" ? "open" : ""}" aria-label="The Wedge Workshop menu">
+  const wedgeSubmenu = `<nav class="legacy-submenu" aria-label="The Wedge Workshop menu">
         ${wedgeItems.map(([label, screen]) => screen
           ? `<button data-screen="${screen}">${label}</button>`
           : `<button data-unavailable>${label}</button>`).join("")}
@@ -290,8 +290,6 @@ document.addEventListener("click", event => {
   const target = event.target.closest("button");
   if (!target) return;
   if (target.dataset.menuSection) {
-    activeMenuSection = target.dataset.menuSection;
-    render();
     return;
   }
   if (target.dataset.screen) navigate(target.dataset.screen);
@@ -332,27 +330,6 @@ document.addEventListener("click", event => {
     case "pain-clear": painStep = 0; render(); break;
     case "pain-reveal": painStep = painStep >= 3 ? 0 : painStep + 1; render(); break;
   }
-});
-
-document.addEventListener("pointerover", event => {
-  const menuButton = event.target.closest("[data-menu-section]");
-  if (!menuButton || activeMenuSection === menuButton.dataset.menuSection) return;
-  activeMenuSection = menuButton.dataset.menuSection;
-  render();
-});
-
-document.addEventListener("mouseover", event => {
-  const menuButton = event.target.closest("[data-menu-section]");
-  if (!menuButton || activeMenuSection === menuButton.dataset.menuSection) return;
-  activeMenuSection = menuButton.dataset.menuSection;
-  render();
-});
-
-document.addEventListener("focusin", event => {
-  const menuButton = event.target.closest("[data-menu-section]");
-  if (!menuButton || activeMenuSection === menuButton.dataset.menuSection) return;
-  activeMenuSection = menuButton.dataset.menuSection;
-  render();
 });
 
 modal.addEventListener("click", event => { if (event.target === modal) modal.close(); });
