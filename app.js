@@ -214,6 +214,13 @@ function componentsScreen() {
       <button data-component="coverage"><span>Coverage</span></button>
       <button data-component="service"><span>Service</span></button>
     </div>
+    <div class="service-branches" aria-label="Service types">
+      <span class="service-line reactive-line" aria-hidden="true"></span>
+      <span class="service-line proactive-line" aria-hidden="true"></span>
+      <div class="service-oval reactive">Reactive</div>
+      <div class="service-oval proactive">Proactive</div>
+      <button class="components-clear" data-action="components-clear">CLEAR</button>
+    </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="survey" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="pain" aria-label="Next slide">▶</button>
@@ -329,6 +336,7 @@ document.addEventListener("click", event => {
     case "reveal-all": document.querySelectorAll("[data-quadrant]").forEach(el => el.classList.add("revealed")); break;
     case "pain-clear": painStep = 0; render(); break;
     case "pain-reveal": painStep = painStep >= 3 ? 0 : painStep + 1; render(); break;
+    case "components-clear": document.querySelectorAll(".components-boxes button").forEach(el => el.classList.remove("revealed")); break;
   }
 });
 

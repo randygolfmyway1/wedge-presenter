@@ -672,19 +672,19 @@ p { line-height: 1.6; }
 .components-boxes {
   position: absolute;
   z-index: 4;
-  left: 20%;
-  top: 44.5%;
-  width: 63%;
+  left: 11%;
+  top: 38.5%;
+  width: 78%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2.2cqw;
+  gap: 3.2cqw;
 }
 .components-boxes button {
-  aspect-ratio: 1.52 / 1;
+  aspect-ratio: 1.56 / 1;
   border: .12cqw solid #333;
   color: #050505;
   background: rgba(255, 255, 255, .72);
-  font-size: 3.56cqw;
+  font-size: 3.45cqw;
   font-weight: 900;
   cursor: pointer;
 }
@@ -693,6 +693,71 @@ p { line-height: 1.6; }
 }
 .components-boxes button.revealed span {
   opacity: 1;
+}
+.service-branches {
+  display: none;
+  position: absolute;
+  z-index: 3;
+  left: 51%;
+  top: 64%;
+  width: 34%;
+  height: 27%;
+  pointer-events: none;
+}
+.components-slide:has(.components-boxes button[data-component="service"].revealed) .service-branches {
+  display: block;
+}
+.service-line {
+  position: absolute;
+  left: 75%;
+  top: 0;
+  width: .13cqw;
+  height: 14.1cqw;
+  background: #050505;
+  transform-origin: top center;
+}
+.reactive-line {
+  transform: rotate(60deg);
+}
+.proactive-line {
+  transform: rotate(-33deg);
+}
+.service-oval {
+  position: absolute;
+  top: 11.3cqw;
+  width: 15.2cqw;
+  height: 9.85cqw;
+  display: grid;
+  place-items: center;
+  border: .16cqw solid #050505;
+  border-radius: 50%;
+  color: #050505;
+  background: rgba(255, 255, 255, .82);
+  font-size: 3.05cqw;
+  line-height: 1;
+  font-weight: 900;
+}
+.service-oval.reactive {
+  left: 0;
+}
+.service-oval.proactive {
+  right: 0;
+}
+.components-clear {
+  position: absolute;
+  left: 37%;
+  top: 18.5cqw;
+  width: 12.4cqw;
+  border: 0;
+  border-radius: 999px;
+  padding: .45cqw 1cqw .55cqw;
+  color: #fff;
+  background: linear-gradient(#b7b7b7, #888);
+  font-size: 1.7cqw;
+  line-height: 1;
+  font-weight: 900;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .lesson-header { margin-bottom: 34px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
