@@ -673,7 +673,7 @@ p { line-height: 1.6; }
   position: absolute;
   z-index: 4;
   left: 11%;
-  top: 38.5%;
+  top: 34.5%;
   width: 78%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -699,7 +699,7 @@ p { line-height: 1.6; }
   position: absolute;
   z-index: 3;
   left: 49.7%;
-  top: 60.6%;
+  top: 56.4%;
   width: 35.4%;
   height: 31%;
   pointer-events: none;
@@ -709,23 +709,25 @@ p { line-height: 1.6; }
 }
 .service-line {
   position: absolute;
-  top: .15cqw;
+  top: 0;
   width: .13cqw;
-  height: 14.8cqw;
+  height: 18.4cqw;
   background: #050505;
   transform-origin: top center;
 }
 .reactive-line {
-  left: 69%;
-  transform: rotate(55deg);
+  left: 77.4%;
+  height: 21.2cqw;
+  transform: rotate(41deg);
 }
 .proactive-line {
-  left: 69%;
-  transform: rotate(-35deg);
+  left: 77.4%;
+  height: 19.2cqw;
+  transform: rotate(-31deg);
 }
 .service-oval {
   position: absolute;
-  top: 13.1cqw;
+  top: 16.5cqw;
   width: 15.2cqw;
   height: 9.85cqw;
   display: grid;
@@ -751,15 +753,15 @@ p { line-height: 1.6; }
   opacity: 1;
 }
 .service-oval.reactive {
-  left: .4cqw;
+  left: 5.6cqw;
 }
 .service-oval.proactive {
-  right: -.7cqw;
+  right: -9.4cqw;
 }
 .components-clear {
   position: absolute;
   left: 38.5%;
-  top: 23.3cqw;
+  top: 26.8cqw;
   width: 12.4cqw;
   border: 0;
   border-radius: 999px;
