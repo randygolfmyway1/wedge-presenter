@@ -47,6 +47,52 @@ function render() {
   app.focus({ preventScroll: true });
 }
 
+function revealPainModel(slide, reveal) {
+  if (!slide || !reveal) return;
+  slide.classList.add(`show-${reveal}`);
+}
+
+function revealPainModelFromPoint(slide, clientX, clientY) {
+  if (!slide) return false;
+  const rect = slide.getBoundingClientRect();
+  const x = (clientX - rect.left) / rect.width;
+  const y = (clientY - rect.top) / rect.height;
+
+  if (x >= .63 && x <= .80 && y >= .88 && y <= .97) {
+    slide.classList.remove("show-problem", "show-solution", "show-fix", "show-forget", "show-condition");
+    return true;
+  }
+  if (x >= .92 && y >= .53) {
+    navigate("ladder");
+    return true;
+  }
+  if (x >= .86 && y >= .53) {
+    navigate("pain");
+    return true;
+  }
+  if (x >= .15 && x <= .43 && y >= .25 && y <= .91) {
+    revealPainModel(slide, "problem");
+    return true;
+  }
+  if (x >= .42 && x <= .68 && y >= .26 && y <= .90) {
+    revealPainModel(slide, "solution");
+    return true;
+  }
+  if (x >= .68 && x <= .98 && y >= .15 && y <= .62) {
+    revealPainModel(slide, "fix");
+    return true;
+  }
+  if (x >= .02 && x <= .34 && y >= .56 && y <= .88) {
+    revealPainModel(slide, "forget");
+    return true;
+  }
+  if (x >= .02 && x <= .34 && y >= .75) {
+    revealPainModel(slide, "condition");
+    return true;
+  }
+  return false;
+}
+
 function menuScreen() {
   const wedgeItems = [
     ["Objective", "objective"],
@@ -329,7 +375,11 @@ function handleCalculator(key) {
 
 document.addEventListener("click", event => {
   const target = event.target.closest("button");
-  if (!target) return;
+  const painModelSlide = event.target.closest(".pain-model-slide");
+  if (!target) {
+    if (painModelSlide) revealPainModelFromPoint(painModelSlide, event.clientX, event.clientY);
+    return;
+  }
   if (target.dataset.menuSection) {
     return;
   }
@@ -345,7 +395,7 @@ document.addEventListener("click", event => {
   if (target.dataset.component) target.classList.add("revealed");
   if (target.dataset.serviceType) target.classList.add("revealed");
   if (target.dataset.painReveal) {
-    target.closest(".pain-model-slide")?.classList.add(`show-${target.dataset.painReveal}`);
+    revealPainModel(target.closest(".pain-model-slide"), target.dataset.painReveal);
   }
 
   switch (target.dataset.action) {
@@ -393,4 +443,5 @@ document.addEventListener("mousedown", event => {
 });
 
 modal.addEventListener("click", event => { if (event.target === modal) modal.close(); });
+if (screens.includes(location.hash.slice(1))) current = location.hash.slice(1);
 render();
