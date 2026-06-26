@@ -52,6 +52,30 @@ function revealPainModel(slide, reveal) {
   slide.classList.add(`show-${reveal}`);
 }
 
+function advancePainModel(slide, x) {
+  if (!slide.classList.contains("show-problem")) {
+    revealPainModel(slide, "problem");
+    return true;
+  }
+  if (!slide.classList.contains("show-solution")) {
+    revealPainModel(slide, "solution");
+    return true;
+  }
+  if (x < .45 && !slide.classList.contains("show-forget")) {
+    revealPainModel(slide, "forget");
+    return true;
+  }
+  if (!slide.classList.contains("show-fix")) {
+    revealPainModel(slide, "fix");
+    return true;
+  }
+  if (!slide.classList.contains("show-condition")) {
+    revealPainModel(slide, "condition");
+    return true;
+  }
+  return false;
+}
+
 function revealPainModelFromPoint(slide, clientX, clientY) {
   if (!slide) return false;
   const rect = slide.getBoundingClientRect();
@@ -71,8 +95,7 @@ function revealPainModelFromPoint(slide, clientX, clientY) {
     return true;
   }
   if (x >= .15 && x <= .43 && y >= .25 && y <= .91) {
-    revealPainModel(slide, "problem");
-    return true;
+    return advancePainModel(slide, x);
   }
   if (x >= .42 && x <= .68 && y >= .26 && y <= .90) {
     revealPainModel(slide, "solution");
@@ -90,7 +113,7 @@ function revealPainModelFromPoint(slide, clientX, clientY) {
     revealPainModel(slide, "condition");
     return true;
   }
-  return false;
+  return advancePainModel(slide, x);
 }
 
 function menuScreen() {
