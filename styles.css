@@ -711,23 +711,23 @@ p { line-height: 1.6; }
   position: absolute;
   top: 0;
   width: .13cqw;
-  height: 18.4cqw;
+  height: 15.4cqw;
   background: #050505;
   transform-origin: top center;
 }
 .reactive-line {
   left: 77.4%;
-  height: 21.2cqw;
-  transform: rotate(41deg);
+  height: 17.8cqw;
+  transform: rotate(52deg);
 }
 .proactive-line {
   left: 77.4%;
-  height: 19.2cqw;
-  transform: rotate(-31deg);
+  height: 14.6cqw;
+  transform: rotate(-42deg);
 }
 .service-oval {
   position: absolute;
-  top: 16.5cqw;
+  top: 11.1cqw;
   width: 15.2cqw;
   height: 9.85cqw;
   display: grid;
@@ -761,7 +761,7 @@ p { line-height: 1.6; }
 .components-clear {
   position: absolute;
   left: 38.5%;
-  top: 26.8cqw;
+  top: 21.4cqw;
   width: 12.4cqw;
   border: 0;
   border-radius: 999px;
