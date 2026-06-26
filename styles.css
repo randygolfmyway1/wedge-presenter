@@ -485,6 +485,10 @@ p { line-height: 1.6; }
   height: 100%;
   object-fit: fill;
 }
+.company-better-slide {
+  width: min(calc(100vw - 20px), calc((100vh - 20px) * 1.95112));
+  aspect-ratio: 1916 / 982;
+}
 .company-hotspot {
   position: absolute;
   z-index: 8;
@@ -589,6 +593,7 @@ p { line-height: 1.6; }
   border: .12cqw solid #111;
 }
 .survey-table thead th {
+  position: relative;
   height: 14%;
   border-top: 0;
   border-left: .12cqw solid #111;
@@ -605,9 +610,13 @@ p { line-height: 1.6; }
   border-bottom: .12cqw solid #111;
 }
 .survey-table thead th span {
+  position: absolute;
+  left: 50%;
+  bottom: .52cqw;
   display: block;
   width: 7.7cqw;
-  transform: translate(.55cqw, -1.15cqw) rotate(-78deg);
+  text-align: left;
+  transform: translateX(-8%) rotate(-78deg);
   transform-origin: left bottom;
   white-space: nowrap;
 }
@@ -615,7 +624,8 @@ p { line-height: 1.6; }
   width: 37.8%;
   padding-left: 2.2cqw;
   text-align: left;
-  font-weight: 400;
+  font-size: 1.43cqw;
+  font-weight: 800;
   background: rgba(255, 255, 255, .48);
 }
 .survey-table tbody td {
@@ -657,6 +667,12 @@ p { line-height: 1.6; }
   font-size: 1.78cqw;
   font-weight: 900;
   cursor: pointer;
+}
+.components-boxes button span {
+  opacity: 0;
+}
+.components-boxes button.revealed span {
+  opacity: 1;
 }
 
 .lesson-header { margin-bottom: 34px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }

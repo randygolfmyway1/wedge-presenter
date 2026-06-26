@@ -212,9 +212,9 @@ function componentsScreen() {
     <h1>3 MAJOR COMPONENTS OF BUSINESS</h1>
     <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <div class="components-boxes">
-      <button data-component="price">Price</button>
-      <button data-component="coverage">Coverage</button>
-      <button data-component="service">Service</button>
+      <button data-component="price"><span>Price</span></button>
+      <button data-component="coverage"><span>Coverage</span></button>
+      <button data-component="service"><span>Service</span></button>
     </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="survey" aria-label="Previous slide">◀</button>
@@ -305,6 +305,7 @@ document.addEventListener("click", event => {
   if (target.dataset.example) { ladderExample = target.dataset.example; render(); }
   if (target.dataset.node) document.querySelector("#tree-detail").textContent = `${target.dataset.node}: ask what evidence supports this level, then move one level more specific.`;
   if (target.dataset.calc) handleCalculator(target.dataset.calc);
+  if (target.dataset.component) target.classList.add("revealed");
 
   switch (target.dataset.action) {
     case "home": historyStack = []; navigate("menu", false); break;
