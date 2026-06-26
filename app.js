@@ -5,6 +5,7 @@ let painStep = 0;
 let ladderExample = "Dairy section";
 let activeMenuSection = null;
 let suppressPainModelClickUntil = 0;
+const painChoiceClasses = ["checked-cost", "checked-time", "checked-resource", "checked-capability", "checked-effort"];
 
 const app = document.querySelector("#app");
 const modal = document.querySelector("#modal");
@@ -50,10 +51,25 @@ function render() {
 
 function revealPainModel(slide, reveal) {
   if (!slide || !reveal) return;
-  if (reveal === "problem") slide.classList.add("show-bubble");
-  if (reveal === "solution") slide.classList.add("show-bubble", "show-problem");
-  if (reveal === "fix" || reveal === "forget") slide.classList.add("show-bubble", "show-problem", "show-solution");
+  if (reveal === "solution") slide.classList.add("show-problem");
+  if (reveal === "fix") slide.classList.add("show-problem", "show-solution", "show-bubble");
+  if (reveal === "problem-x") slide.classList.add("show-problem", "show-solution", "show-fix");
+  if (reveal === "no-solution") slide.classList.add("show-problem", "show-bubble");
+  if (reveal === "forget") slide.classList.add("show-no-solution");
+  if (reveal === "condition") slide.classList.add("show-no-solution", "show-forget");
   slide.classList.add(`show-${reveal}`);
+}
+
+function checkPainChoice(slide, choice) {
+  if (!slide || !choice) return;
+  if (choice === "effort" && !slide.classList.contains("show-fix")) {
+    revealPainModel(slide, "fix");
+    return;
+  }
+  slide.classList.add(`checked-${choice}`);
+  if (painChoiceClasses.every(name => slide.classList.contains(name))) {
+    revealPainModel(slide, "no-solution");
+  }
 }
 
 function revealPainModelFromPoint(slide, clientX, clientY) {
@@ -63,7 +79,7 @@ function revealPainModelFromPoint(slide, clientX, clientY) {
   const y = (clientY - rect.top) / rect.height;
 
   if (x >= .63 && x <= .80 && y >= .88 && y <= .97) {
-    slide.classList.remove("show-problem", "show-solution", "show-fix", "show-forget", "show-condition");
+    slide.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-problem-x", "show-no-solution", "show-forget", "show-condition", ...painChoiceClasses);
     return true;
   }
   if (x >= .92 && y >= .53) {
@@ -75,23 +91,23 @@ function revealPainModelFromPoint(slide, clientX, clientY) {
     return true;
   }
   if (x >= .28 && x <= .48 && y >= .30 && y <= .52) {
-    revealPainModel(slide, "problem");
-    return true;
-  }
-  if (x >= .18 && x <= .39 && y >= .34 && y <= .88) {
     revealPainModel(slide, "bubble");
     return true;
   }
+  if (x >= .18 && x <= .39 && y >= .34 && y <= .88) {
+    revealPainModel(slide, "problem");
+    return true;
+  }
   if (x >= .46 && x <= .66 && y >= .38 && y <= .88) {
-    revealPainModel(slide, slide.classList.contains("show-problem") ? "solution" : "problem");
+    revealPainModel(slide, "solution");
     return true;
   }
   if (x >= .68 && x <= .90 && y >= .42 && y <= .67) {
-    revealPainModel(slide, slide.classList.contains("show-solution") ? "fix" : "solution");
+    revealPainModel(slide, slide.classList.contains("show-fix") ? "problem-x" : "fix");
     return true;
   }
   if (x >= .28 && x <= .50 && y >= .60 && y <= .82) {
-    revealPainModel(slide, "forget");
+    revealPainModel(slide, slide.classList.contains("show-forget") ? "condition" : "forget");
     return true;
   }
   if (x >= .02 && x <= .34 && y >= .75) {
@@ -310,15 +326,16 @@ function painModelScreen() {
     <img class="pain-model-base" src="assets/hidden-pain-base.png" alt="Locating your prospect's hidden pain">
     <div class="pain-model-reveals" aria-hidden="true">
       <div class="pain-checklist">
-        <label><span>✓</span> Cost</label>
-        <label><span>✓</span> Time</label>
-        <label><span>✓</span> Resource</label>
-        <label><span>✓</span> Capability</label>
-        <label><span>✓</span> Effort</label>
+        <button class="pain-choice pain-choice-cost" data-pain-choice="cost"><span>1.</span> cost</button>
+        <button class="pain-choice pain-choice-time" data-pain-choice="time"><span>2.</span> time</button>
+        <button class="pain-choice pain-choice-resource" data-pain-choice="resource"><span>3.</span> resource</button>
+        <button class="pain-choice pain-choice-capability" data-pain-choice="capability"><span>4.</span> capability</button>
+        <button class="pain-choice pain-choice-effort" data-pain-choice="effort"><span>5.</span> effort</button>
       </div>
       <div class="pain-question">?</div>
       <div class="pain-arrow pain-arrow-to-problem">➜</div>
       <div class="pain-problem-block"><span>PROBLEM</span></div>
+      <div class="pain-problem-x" aria-hidden="true"></div>
       <div class="pain-arrow pain-arrow-to-solution">➜</div>
       <div class="pain-solution-block">SOLUTION</div>
       <div class="pain-fix-block">Fix It</div>
@@ -389,7 +406,7 @@ document.addEventListener("click", event => {
     if (painModelSlide) revealPainModelFromPoint(painModelSlide, event.clientX, event.clientY);
     return;
   }
-  if (painModelSlide && target.classList.contains("pain-model-hotspot") && !target.dataset.action && !target.dataset.screen) {
+  if (painModelSlide && target.classList.contains("pain-model-hotspot") && !target.dataset.action && !target.dataset.screen && !target.dataset.painReveal) {
     revealPainModelFromPoint(painModelSlide, event.clientX, event.clientY);
     return;
   }
@@ -407,8 +424,17 @@ document.addEventListener("click", event => {
   if (target.dataset.calc) handleCalculator(target.dataset.calc);
   if (target.dataset.component) target.classList.add("revealed");
   if (target.dataset.serviceType) target.classList.add("revealed");
+  if (target.dataset.painChoice) {
+    checkPainChoice(target.closest(".pain-model-slide"), target.dataset.painChoice);
+    return;
+  }
   if (target.dataset.painReveal) {
-    revealPainModel(target.closest(".pain-model-slide"), target.dataset.painReveal);
+    const slide = target.closest(".pain-model-slide");
+    if (target.classList.contains("pain-model-solution-button") && slide?.classList.contains("show-fix")) {
+      revealPainModel(slide, "problem-x");
+    } else {
+      revealPainModel(slide, target.dataset.painReveal);
+    }
   }
 
   switch (target.dataset.action) {
@@ -438,7 +464,7 @@ document.addEventListener("click", event => {
     case "pain-clear": painStep = 0; render(); break;
     case "pain-reveal": painStep = painStep >= 3 ? 0 : painStep + 1; render(); break;
     case "pain-model-clear": {
-      target.closest(".pain-model-slide")?.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-forget", "show-condition");
+      target.closest(".pain-model-slide")?.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-problem-x", "show-no-solution", "show-forget", "show-condition", ...painChoiceClasses);
       break;
     }
     case "components-clear": {

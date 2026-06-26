@@ -848,43 +848,96 @@ p { line-height: 1.6; }
 .pain-model-reveals {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 7;
   pointer-events: none;
 }
 .pain-model-reveals > * {
   opacity: 0;
   transition: opacity .12s linear;
 }
-.pain-model-slide.show-bubble .pain-checklist,
-.pain-model-slide.show-bubble .pain-question,
+.pain-model-slide.show-problem .pain-question,
 .pain-model-slide.show-problem .pain-arrow-to-problem,
 .pain-model-slide.show-problem .pain-problem-block,
+.pain-model-slide.show-bubble .pain-checklist,
 .pain-model-slide.show-solution .pain-arrow-to-solution,
 .pain-model-slide.show-solution .pain-solution-block,
 .pain-model-slide.show-fix .pain-fix-block,
 .pain-model-slide.show-fix .pain-fix-arrows,
-.pain-model-slide.show-forget .pain-no-solution-block,
+.pain-model-slide.show-problem-x .pain-problem-x,
+.pain-model-slide.show-no-solution .pain-no-solution-block,
 .pain-model-slide.show-forget .pain-forget-block,
 .pain-model-slide.show-condition .pain-condition-label,
 .pain-model-slide.show-condition .pain-brain {
   opacity: 1;
 }
+.pain-model-slide.show-no-solution .pain-arrow-to-solution,
+.pain-model-slide.show-no-solution .pain-solution-block,
+.pain-model-slide.show-no-solution .pain-fix-block,
+.pain-model-slide.show-no-solution .pain-fix-arrows,
+.pain-model-slide.show-no-solution .pain-problem-x {
+  opacity: 0;
+}
 .pain-checklist {
   position: absolute;
-  left: 29.4%;
-  top: 35.6%;
-  width: 14.7%;
-  aspect-ratio: 144 / 86;
-  padding: 0;
+  left: 29.1%;
+  top: 34.7%;
+  width: 15.8%;
+  aspect-ratio: 1.7 / 1;
+  padding: 1.1cqw 1.05cqw .75cqw 1.35cqw;
+  border: .14cqw solid #111;
+  border-radius: 50%;
+  background: #fff;
+  color: #050505;
+  font-size: .82cqw;
+  font-weight: 700;
+  line-height: 1.06;
+  pointer-events: auto;
+}
+.pain-checklist::after {
+  content: "";
+  position: absolute;
+  right: -7%;
+  bottom: 9%;
+  width: 16%;
+  height: 15%;
+  border: .11cqw solid #111;
+  border-radius: 50%;
+  background: #fff;
+}
+.pain-choice {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
   border: 0;
-  background: url("assets/pain-bubble.png") 0 0 / contain no-repeat;
-  font-size: 0;
+  padding: 0;
+  background: transparent;
+  color: #050505;
+  font: inherit;
+  line-height: 1.08;
+  text-align: left;
+  cursor: pointer;
 }
-.pain-checklist label {
-  display: none;
+.pain-choice span {
+  margin-right: .16cqw;
 }
-.pain-checklist span {
-  display: none;
+.pain-choice::after {
+  content: "";
+  position: absolute;
+  left: -.25cqw;
+  right: -.15cqw;
+  top: 53%;
+  height: .18cqw;
+  background: #d80b43;
+  opacity: 0;
+  transform: translateY(-50%) rotate(-8deg);
+}
+.pain-model-slide.checked-cost .pain-choice-cost::after,
+.pain-model-slide.checked-time .pain-choice-time::after,
+.pain-model-slide.checked-resource .pain-choice-resource::after,
+.pain-model-slide.checked-capability .pain-choice-capability::after,
+.pain-model-slide.checked-effort .pain-choice-effort::after {
+  opacity: 1;
 }
 .pain-question {
   position: absolute;
@@ -928,6 +981,32 @@ p { line-height: 1.6; }
   letter-spacing: .02cqw;
   writing-mode: vertical-rl;
   text-orientation: mixed;
+}
+.pain-problem-x {
+  position: absolute;
+  left: 55.25%;
+  top: 41.6%;
+  width: 7.1%;
+  height: 53.8%;
+  pointer-events: none;
+}
+.pain-problem-x::before,
+.pain-problem-x::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: .32cqw;
+  height: 100%;
+  border-radius: 999px;
+  background: #d80b43;
+  transform-origin: center;
+}
+.pain-problem-x::before {
+  transform: translateX(-50%) rotate(12deg);
+}
+.pain-problem-x::after {
+  transform: translateX(-50%) rotate(-12deg);
 }
 .pain-solution-block,
 .pain-no-solution-block {
@@ -980,21 +1059,21 @@ p { line-height: 1.6; }
 }
 .pain-condition-label {
   position: absolute;
-  left: 5.8%;
-  top: 102.4%;
+  left: 31.7%;
+  top: 82.3%;
   color: #050505;
-  font-size: 3.2cqw;
+  font-size: 2.45cqw;
   font-weight: 900;
-  letter-spacing: .22cqw;
-  transform: rotate(-28deg);
+  letter-spacing: .16cqw;
+  transform: rotate(0deg);
   transform-origin: left center;
 }
 .pain-brain {
   position: absolute;
-  left: 7.8%;
-  top: 122%;
-  width: 13.8%;
-  height: 17.4%;
+  left: 36.5%;
+  top: 87.4%;
+  width: 8.8%;
+  height: 9.2%;
   border: .16cqw solid #222;
   border-radius: 50% 50% 45% 45%;
   background: #f7f7f7;
@@ -1057,16 +1136,16 @@ p { line-height: 1.6; }
   height: 30%;
 }
 .pain-model-no-solution-button {
-  left: 3%;
-  top: 74%;
-  width: 24%;
-  height: 12%;
+  left: 30.8%;
+  top: 63.2%;
+  width: 17%;
+  height: 7.6%;
 }
 .pain-model-condition-button {
-  left: 3%;
-  top: 88%;
-  width: 26%;
-  height: 12%;
+  left: 31.2%;
+  top: 72.6%;
+  width: 16.6%;
+  height: 8.4%;
 }
 .pain-model-clear {
   left: 66.2%;
