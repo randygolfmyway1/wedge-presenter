@@ -1,4 +1,4 @@
-const screens = ["menu", "objective", "company", "survey", "components", "pain", "ladder"];
+const screens = ["menu", "objective", "company", "survey", "components", "pain", "painModel", "ladder"];
 let current = "menu";
 let historyStack = [];
 let painStep = 0;
@@ -36,13 +36,13 @@ function navigate(next, push = true) {
 function render() {
   const index = screens.indexOf(current);
   document.querySelector(".app-shell").classList.toggle("legacy-menu-active", current === "menu");
-  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "pain"].includes(current));
+  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "pain", "painModel"].includes(current));
   progressBar.style.width = `${Math.max(0, index) / (screens.length - 1) * 100}%`;
   sectionLabel.textContent = current === "menu" ? "Main menu" : `The Wedge Workshop · ${index} of ${screens.length - 1}`;
   document.querySelector('[data-action="back"]').disabled = current === "menu" && historyStack.length === 0;
   document.querySelector('[data-action="next"]').disabled = current === "ladder";
 
-  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, pain: painScreen, ladder: ladderScreen };
+  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, pain: painScreen, painModel: painModelScreen, ladder: ladderScreen };
   app.innerHTML = templates[current]();
   app.focus({ preventScroll: true });
 }
@@ -241,13 +241,50 @@ function painScreen() {
     <button class="pain-clear" data-action="pain-clear">CLEAR</button>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="components" aria-label="Previous slide">◀</button>
-    <button class="legacy-slide-arrow next" data-action="pain-next-pending" aria-label="Next slide">▶</button>
+    <button class="legacy-slide-arrow next" data-screen="painModel" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
       <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
       <button data-action="calculator">calculator</button>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
+  </section>`;
+}
+
+function painModelScreen() {
+  return `<section class="legacy-lesson-slide pain-model-slide" aria-label="Hidden pain model">
+    <img class="pain-model-base" src="assets/hidden-pain-base.png" alt="Locating your prospect's hidden pain">
+    <div class="pain-model-reveals" aria-hidden="true">
+      <div class="pain-checklist">
+        <label><span>✓</span> Cost</label>
+        <label><span>✓</span> Time</label>
+        <label><span>✓</span> Resource</label>
+        <label><span>✓</span> Capability</label>
+        <label><span>✓</span> Effort</label>
+      </div>
+      <div class="pain-question">?</div>
+      <div class="pain-arrow pain-arrow-to-problem">➜</div>
+      <div class="pain-problem-block"><span>PROBLEM</span></div>
+      <div class="pain-arrow pain-arrow-to-solution">➜</div>
+      <div class="pain-solution-block">SOLUTION</div>
+      <div class="pain-fix-block">Fix It</div>
+      <div class="pain-fix-arrows"><span>↕</span><span>↑</span></div>
+      <div class="pain-no-solution-block">NO SOLUTION</div>
+      <div class="pain-forget-block">Forget It</div>
+      <div class="pain-condition-label">CONDITION</div>
+      <div class="pain-brain">
+        <span class="brain-active">ACTIVE</span>
+        <span class="brain-latent">LATENT</span>
+      </div>
+    </div>
+    <button class="pain-model-hotspot pain-model-man" data-pain-reveal="problem" aria-label="Reveal problem"></button>
+    <button class="pain-model-hotspot pain-model-problem-button" data-pain-reveal="solution" aria-label="Reveal solution"></button>
+    <button class="pain-model-hotspot pain-model-solution-button" data-pain-reveal="fix" aria-label="Reveal fix it"></button>
+    <button class="pain-model-hotspot pain-model-no-solution-button" data-pain-reveal="forget" aria-label="Reveal no solution"></button>
+    <button class="pain-model-hotspot pain-model-condition-button" data-pain-reveal="condition" aria-label="Reveal condition"></button>
+    <button class="pain-model-hotspot pain-model-clear" data-action="pain-model-clear" aria-label="Clear"></button>
+    <button class="pain-model-hotspot pain-model-back" data-screen="pain" aria-label="Previous slide"></button>
+    <button class="pain-model-hotspot pain-model-next" data-screen="ladder" aria-label="Next slide"></button>
   </section>`;
 }
 
@@ -307,6 +344,9 @@ document.addEventListener("click", event => {
   if (target.dataset.calc) handleCalculator(target.dataset.calc);
   if (target.dataset.component) target.classList.add("revealed");
   if (target.dataset.serviceType) target.classList.add("revealed");
+  if (target.dataset.painReveal) {
+    target.closest(".pain-model-slide")?.classList.add(`show-${target.dataset.painReveal}`);
+  }
 
   switch (target.dataset.action) {
     case "home": historyStack = []; navigate("menu", false); break;
@@ -334,7 +374,10 @@ document.addEventListener("click", event => {
     case "reveal-all": document.querySelectorAll("[data-quadrant]").forEach(el => el.classList.add("revealed")); break;
     case "pain-clear": painStep = 0; render(); break;
     case "pain-reveal": painStep = painStep >= 3 ? 0 : painStep + 1; render(); break;
-    case "pain-next-pending": openModal("Next page", "<p>The next Hidden Pain page will be built from the second video.</p>"); break;
+    case "pain-model-clear": {
+      target.closest(".pain-model-slide")?.classList.remove("show-problem", "show-solution", "show-fix", "show-forget", "show-condition");
+      break;
+    }
     case "components-clear": {
       document.querySelectorAll(".components-boxes button, .service-oval").forEach(el => el.classList.remove("revealed"));
       break;
