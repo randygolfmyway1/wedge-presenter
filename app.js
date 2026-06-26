@@ -36,7 +36,7 @@ function navigate(next, push = true) {
 function render() {
   const index = screens.indexOf(current);
   document.querySelector(".app-shell").classList.toggle("legacy-menu-active", current === "menu");
-  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components"].includes(current));
+  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "pain"].includes(current));
   progressBar.style.width = `${Math.max(0, index) / (screens.length - 1) * 100}%`;
   sectionLabel.textContent = current === "menu" ? "Main menu" : `The Wedge Workshop · ${index} of ${screens.length - 1}`;
   document.querySelector('[data-action="back"]').disabled = current === "menu" && historyStack.length === 0;
@@ -234,22 +234,19 @@ function componentsScreen() {
 }
 
 function painScreen() {
-  const states = ["", painStep >= 1 ? "active" : "", painStep >= 2 ? "active" : "", painStep >= 3 ? "active" : ""];
-  return `<section class="screen">
-    <header class="lesson-header"><span class="eyebrow">Interactive model</span><h1>Locating your prospect’s hidden pain</h1><p class="lead">Advance the model one step at a time, mirroring the staged reveals in the Flash application.</p></header>
-    <div class="pain-layout">
-      <div class="person-card"><div class="person" aria-label="Prospect thinking">♟<div class="thought">Cost · Time · Resources · Capability · Effort</div></div></div>
-      <div>
-        <div class="pain-flow">
-          <div class="flow-node problem ${states[1]}">Problem</div><span class="flow-arrow">→</span>
-          <div class="flow-node solution ${states[2]}">Solution</div><span class="flow-arrow">→</span>
-          <div class="flow-node commitment ${states[3]}">Commitment</div>
-        </div>
-        <div class="reveal-controls">
-          <button class="tool secondary" data-action="pain-clear">Clear</button>
-          <button class="tool primary" data-action="pain-reveal">${painStep >= 3 ? "Restart" : "Reveal next"}</button>
-        </div>
-      </div>
+  return `<section class="legacy-lesson-slide pain-slide" aria-label="Locating your prospect's hidden pain">
+    <h1>LOCATING YOUR PROSPECT'S HIDDEN PAIN</h1>
+    <img class="pain-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <img class="pain-prospect" src="assets/prospect-figure.png" alt="Prospect">
+    <button class="pain-clear" data-action="pain-clear">CLEAR</button>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="components" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-action="pain-next-pending" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
     </div>
   </section>`;
 }
@@ -337,6 +334,7 @@ document.addEventListener("click", event => {
     case "reveal-all": document.querySelectorAll("[data-quadrant]").forEach(el => el.classList.add("revealed")); break;
     case "pain-clear": painStep = 0; render(); break;
     case "pain-reveal": painStep = painStep >= 3 ? 0 : painStep + 1; render(); break;
+    case "pain-next-pending": openModal("Next page", "<p>The next Hidden Pain page will be built from the second video.</p>"); break;
     case "components-clear": {
       document.querySelectorAll(".components-boxes button, .service-oval").forEach(el => el.classList.remove("revealed"));
       break;
