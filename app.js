@@ -1,9 +1,10 @@
-const screens = ["menu", "objective", "company", "survey", "components", "pain", "painModel", "ladder"];
+const screens = ["menu", "objective", "company", "survey", "components", "painModel", "ladder"];
 let current = "menu";
 let historyStack = [];
 let painStep = 0;
 let ladderExample = "Dairy section";
 let activeMenuSection = null;
+let suppressPainModelClickUntil = 0;
 
 const app = document.querySelector("#app");
 const modal = document.querySelector("#modal");
@@ -122,7 +123,7 @@ function menuScreen() {
     ["How Is Your Company Better?", "company"],
     ["Survey Results", "survey"],
     ["3 Major Components of Business", "components"],
-    ["Locate Your Prospect's Pain", "pain"],
+    ["Locate Your Prospect's Pain", "painModel"],
     ["What Motivates People?", ""],
     ["Hoover Dam", ""],
     ["Ladder of Abstraction", "ladder"],
@@ -352,7 +353,7 @@ function painModelScreen() {
     <button class="pain-model-hotspot pain-model-no-solution-button" data-pain-reveal="forget" aria-label="Reveal no solution"></button>
     <button class="pain-model-hotspot pain-model-condition-button" data-pain-reveal="condition" aria-label="Reveal condition"></button>
     <button class="pain-model-hotspot pain-model-clear" data-action="pain-model-clear" aria-label="Clear"></button>
-    <button class="pain-model-hotspot pain-model-back" data-screen="pain" aria-label="Previous slide"></button>
+    <button class="pain-model-hotspot pain-model-back" data-screen="components" aria-label="Previous slide"></button>
     <button class="pain-model-hotspot pain-model-next" data-screen="ladder" aria-label="Next slide"></button>
   </section>`;
 }
@@ -399,6 +400,7 @@ function handleCalculator(key) {
 document.addEventListener("click", event => {
   const target = event.target.closest("button");
   const painModelSlide = event.target.closest(".pain-model-slide");
+  if (painModelSlide && Date.now() < suppressPainModelClickUntil) return;
   if (!target) {
     if (painModelSlide) revealPainModelFromPoint(painModelSlide, event.clientX, event.clientY);
     return;
@@ -462,6 +464,7 @@ document.addEventListener("mousedown", event => {
   const target = event.target.closest(".legacy-submenu button[data-screen]");
   if (!target) return;
   event.preventDefault();
+  suppressPainModelClickUntil = Date.now() + 350;
   navigate(target.dataset.screen);
 });
 
