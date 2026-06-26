@@ -217,8 +217,8 @@ function componentsScreen() {
     <div class="service-branches" aria-label="Service types">
       <span class="service-line reactive-line" aria-hidden="true"></span>
       <span class="service-line proactive-line" aria-hidden="true"></span>
-      <div class="service-oval reactive">Reactive</div>
-      <div class="service-oval proactive">Proactive</div>
+      <button class="service-oval reactive" data-service-type="reactive"><span>Reactive</span></button>
+      <button class="service-oval proactive" data-service-type="proactive"><span>Proactive</span></button>
       <button class="components-clear" data-action="components-clear">CLEAR</button>
     </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
@@ -309,6 +309,7 @@ document.addEventListener("click", event => {
   if (target.dataset.node) document.querySelector("#tree-detail").textContent = `${target.dataset.node}: ask what evidence supports this level, then move one level more specific.`;
   if (target.dataset.calc) handleCalculator(target.dataset.calc);
   if (target.dataset.component) target.classList.add("revealed");
+  if (target.dataset.serviceType) target.classList.add("revealed");
 
   switch (target.dataset.action) {
     case "home": historyStack = []; navigate("menu", false); break;
@@ -336,7 +337,10 @@ document.addEventListener("click", event => {
     case "reveal-all": document.querySelectorAll("[data-quadrant]").forEach(el => el.classList.add("revealed")); break;
     case "pain-clear": painStep = 0; render(); break;
     case "pain-reveal": painStep = painStep >= 3 ? 0 : painStep + 1; render(); break;
-    case "components-clear": document.querySelectorAll(".components-boxes button").forEach(el => el.classList.remove("revealed")); break;
+    case "components-clear": {
+      document.querySelectorAll(".components-boxes button, .service-oval").forEach(el => el.classList.remove("revealed"));
+      break;
+    }
   }
 });
 

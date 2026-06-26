@@ -698,10 +698,10 @@ p { line-height: 1.6; }
   display: none;
   position: absolute;
   z-index: 3;
-  left: 51%;
-  top: 64%;
-  width: 34%;
-  height: 27%;
+  left: 49.7%;
+  top: 60.6%;
+  width: 35.4%;
+  height: 31%;
   pointer-events: none;
 }
 .components-slide:has(.components-boxes button[data-component="service"].revealed) .service-branches {
@@ -709,22 +709,22 @@ p { line-height: 1.6; }
 }
 .service-line {
   position: absolute;
-  left: 75%;
+  left: 69%;
   top: 0;
   width: .13cqw;
-  height: 14.1cqw;
+  height: 14.4cqw;
   background: #050505;
   transform-origin: top center;
 }
 .reactive-line {
-  transform: rotate(60deg);
+  transform: rotate(61deg);
 }
 .proactive-line {
-  transform: rotate(-33deg);
+  transform: rotate(-34deg);
 }
 .service-oval {
   position: absolute;
-  top: 11.3cqw;
+  top: 13.1cqw;
   width: 15.2cqw;
   height: 9.85cqw;
   display: grid;
@@ -736,17 +736,29 @@ p { line-height: 1.6; }
   font-size: 3.05cqw;
   line-height: 1;
   font-weight: 900;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.service-oval:focus,
+.service-oval:focus-visible {
+  outline: none;
+}
+.service-oval span {
+  opacity: 0;
+}
+.service-oval.revealed span {
+  opacity: 1;
 }
 .service-oval.reactive {
-  left: 0;
+  left: .4cqw;
 }
 .service-oval.proactive {
-  right: 0;
+  right: -.7cqw;
 }
 .components-clear {
   position: absolute;
-  left: 37%;
-  top: 18.5cqw;
+  left: 38.5%;
+  top: 23.3cqw;
   width: 12.4cqw;
   border: 0;
   border-radius: 999px;
