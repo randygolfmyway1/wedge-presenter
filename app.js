@@ -50,31 +50,10 @@ function render() {
 
 function revealPainModel(slide, reveal) {
   if (!slide || !reveal) return;
+  if (reveal === "problem") slide.classList.add("show-bubble");
+  if (reveal === "solution") slide.classList.add("show-bubble", "show-problem");
+  if (reveal === "fix" || reveal === "forget") slide.classList.add("show-bubble", "show-problem", "show-solution");
   slide.classList.add(`show-${reveal}`);
-}
-
-function advancePainModel(slide, x) {
-  if (!slide.classList.contains("show-problem")) {
-    revealPainModel(slide, "problem");
-    return true;
-  }
-  if (!slide.classList.contains("show-solution")) {
-    revealPainModel(slide, "solution");
-    return true;
-  }
-  if (x < .45 && !slide.classList.contains("show-forget")) {
-    revealPainModel(slide, "forget");
-    return true;
-  }
-  if (!slide.classList.contains("show-fix")) {
-    revealPainModel(slide, "fix");
-    return true;
-  }
-  if (!slide.classList.contains("show-condition")) {
-    revealPainModel(slide, "condition");
-    return true;
-  }
-  return false;
 }
 
 function revealPainModelFromPoint(slide, clientX, clientY) {
@@ -92,21 +71,26 @@ function revealPainModelFromPoint(slide, clientX, clientY) {
     return true;
   }
   if (x >= .86 && y >= .53) {
-    navigate("pain");
+    navigate("components");
     return true;
   }
-  if (x >= .15 && x <= .43 && y >= .25 && y <= .91) {
-    return advancePainModel(slide, x);
-  }
-  if (x >= .42 && x <= .68 && y >= .26 && y <= .90) {
-    revealPainModel(slide, "solution");
+  if (x >= .28 && x <= .48 && y >= .30 && y <= .52) {
+    revealPainModel(slide, "problem");
     return true;
   }
-  if (x >= .68 && x <= .98 && y >= .15 && y <= .62) {
-    revealPainModel(slide, "fix");
+  if (x >= .18 && x <= .39 && y >= .34 && y <= .88) {
+    revealPainModel(slide, "bubble");
     return true;
   }
-  if (x >= .02 && x <= .34 && y >= .56 && y <= .88) {
+  if (x >= .46 && x <= .66 && y >= .38 && y <= .88) {
+    revealPainModel(slide, slide.classList.contains("show-problem") ? "solution" : "problem");
+    return true;
+  }
+  if (x >= .68 && x <= .90 && y >= .42 && y <= .67) {
+    revealPainModel(slide, slide.classList.contains("show-solution") ? "fix" : "solution");
+    return true;
+  }
+  if (x >= .28 && x <= .50 && y >= .60 && y <= .82) {
     revealPainModel(slide, "forget");
     return true;
   }
@@ -114,7 +98,7 @@ function revealPainModelFromPoint(slide, clientX, clientY) {
     revealPainModel(slide, "condition");
     return true;
   }
-  return advancePainModel(slide, x);
+  return false;
 }
 
 function menuScreen() {
@@ -454,7 +438,7 @@ document.addEventListener("click", event => {
     case "pain-clear": painStep = 0; render(); break;
     case "pain-reveal": painStep = painStep >= 3 ? 0 : painStep + 1; render(); break;
     case "pain-model-clear": {
-      target.closest(".pain-model-slide")?.classList.remove("show-problem", "show-solution", "show-fix", "show-forget", "show-condition");
+      target.closest(".pain-model-slide")?.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-forget", "show-condition");
       break;
     }
     case "components-clear": {

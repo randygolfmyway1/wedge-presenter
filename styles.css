@@ -855,8 +855,8 @@ p { line-height: 1.6; }
   opacity: 0;
   transition: opacity .12s linear;
 }
-.pain-model-slide.show-problem .pain-checklist,
-.pain-model-slide.show-problem .pain-question,
+.pain-model-slide.show-bubble .pain-checklist,
+.pain-model-slide.show-bubble .pain-question,
 .pain-model-slide.show-problem .pain-arrow-to-problem,
 .pain-model-slide.show-problem .pain-problem-block,
 .pain-model-slide.show-solution .pain-arrow-to-solution,
