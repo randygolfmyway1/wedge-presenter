@@ -332,5 +332,12 @@ document.addEventListener("click", event => {
   }
 });
 
+document.addEventListener("mousedown", event => {
+  const target = event.target.closest(".legacy-submenu button[data-screen]");
+  if (!target) return;
+  event.preventDefault();
+  navigate(target.dataset.screen);
+});
+
 modal.addEventListener("click", event => { if (event.target === modal) modal.close(); });
 render();

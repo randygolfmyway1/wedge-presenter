@@ -627,11 +627,13 @@ p { line-height: 1.6; }
 .survey-table thead th span {
   position: absolute;
   left: 50%;
-  bottom: .52cqw;
+  bottom: .25cqw;
   display: block;
-  width: 7.7cqw;
+  width: 10.2cqw;
   text-align: left;
-  transform: translateX(-8%) rotate(-78deg);
+  font-size: 1.48cqw;
+  font-weight: 900;
+  transform: translateX(-6%) rotate(-78deg);
   transform-origin: left bottom;
   white-space: nowrap;
 }
@@ -655,14 +657,17 @@ p { line-height: 1.6; }
 .survey-note {
   position: absolute;
   z-index: 4;
-  left: 26.1%;
-  bottom: 8.2%;
+  left: 50%;
+  width: 66%;
+  bottom: 6.9%;
   margin: 0;
   color: #050505;
-  font-size: 1.45cqw;
-  line-height: 1;
-  font-weight: 700;
-  white-space: nowrap;
+  font-size: 2.9cqw;
+  line-height: 1.05;
+  font-weight: 900;
+  text-align: center;
+  transform: translateX(-50%);
+  white-space: normal;
 }
 .components-boxes {
   position: absolute;
