@@ -7,6 +7,10 @@
 .commitment-label { left: 36%; }
 .teaching-panel { left: 5%; top: 38.5%; width: 70%; font-size: 3.65cqw; }
 .teaching-panel.wide { left: 4%; width: 81%; }
+.teaching-panel.fishnet-dialog {
+  left: 4%;
+  width: 86%;
+}
 .teaching-panel.wide:has(.qualifying-table) {
   top: 38%;
   height: 33%;
@@ -541,13 +545,43 @@
   font-size: 3.35cqw;
 }
 #reactive-flow {
-  left: 20%;
+  left: 18.5%;
   top: 33%;
-  width: 40%;
+  width: 48%;
   height: 9%;
+  overflow: visible;
 }
 #reactive-flow .process-node { height: 5.8cqw; }
 #reactive-flow .process-node.active { height: 6.2cqw; }
+#reactive-flow .flow-arrow {
+  flex: 0 0 3.4cqw;
+  width: 3.4cqw;
+  color: #050505;
+  opacity: 1;
+  font-size: 2.35cqw;
+  line-height: 1;
+  text-align: center;
+}
+#reactive-flow::before,
+#reactive-flow::after {
+  position: absolute;
+  z-index: 6;
+  color: #050505;
+  font-size: 3.25cqw;
+  line-height: 1;
+  font-weight: 900;
+  pointer-events: none;
+}
+#reactive-flow::before {
+  content: "↓";
+  left: 15%;
+  top: -5.25cqw;
+}
+#reactive-flow::after {
+  content: "↑";
+  right: 15%;
+  top: -5.25cqw;
+}
 .flow-arrow.muted { opacity: .22; }
 .sales-call-stage.reactive-mode .teaching-panel {
   left: 15%;

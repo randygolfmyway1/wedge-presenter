@@ -1,6 +1,6 @@
 const topStages = [
   { id: "rapport", label: "Build<br>Rapport", family: "neutral", objective: "To create an open, comfortable conversation.", script: '"How are you today?"' },
-  { id: "fishnet", label: "Fish Net<br>Questions", family: "problem", objective: "To uncover active problems and open the prospect’s thinking.", script: '"How are things with your insurance program?"<br>"Have you had any problems with . . ."<ul><li>claims?</li><li>service?</li><li>coverage?</li></ul>' },
+  { id: "fishnet", label: "Fish Net<br>Questions", family: "problem", objective: 'To identify any "pain" within the active memory.', script: '"How are things with your insurance program?"<br>"Have you had any problems with . . ."<ul><li>claims or how they&rsquo;ve been handled?</li><li>service issues?</li><li>anything about coverage that keeps you up at night?</li></ul>' },
   { id: "qualifying", label: "Qualifying<br>Questions", family: "problem", objective: "To determine whether a proactive service is needed.", script: "qualifying-table" },
   { id: "picture", label: "Picture<br>Perfect", family: "problem", objective: "To visualize the difference between perfection and their past experience.", script: "picture-perfect" },
   { id: "takeaway", label: "Take Away", family: "problem", objective: "To get the prospect emotionally involved.", script: '"okay... so having that is not that important..."' }
@@ -366,6 +366,7 @@ function showTool(tool) {
   }
 
   panel.classList.toggle("wide", item.id === "qualifying" || item.id === "picture");
+  panel.classList.toggle("fishnet-dialog", item.id === "fishnet" && tool === "script");
   bindPanelActions();
 }
 

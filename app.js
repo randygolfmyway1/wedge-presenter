@@ -1,4 +1,4 @@
-const screens = ["menu", "objective", "company", "survey", "components", "painModel", "painMemory", "motivates", "hooverRiver", "hooverLake", "hooverCompare", "ladder", "differentiate", "competition", "preCall", "knowledgePower"];
+const screens = ["menu", "objective", "company", "survey", "components", "painModel", "painMemory", "motivates", "hooverRiver", "hooverLake", "hooverCompare", "ladder", "differentiate", "competition", "preCall", "knowledgePower", "gamesZones", "rulesWedge", "salesCall"];
 let current = "menu";
 let historyStack = [];
 let painStep = 0;
@@ -40,13 +40,13 @@ function navigate(next, push = true) {
 function render() {
   const index = screens.indexOf(current);
   document.querySelector(".app-shell").classList.toggle("legacy-menu-active", current === "menu");
-  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "pain", "painModel", "painMemory", "motivates", "hooverRiver", "hooverLake", "hooverCompare", "ladder", "differentiate", "competition", "preCall", "knowledgePower"].includes(current));
+  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "pain", "painModel", "painMemory", "motivates", "hooverRiver", "hooverLake", "hooverCompare", "ladder", "differentiate", "competition", "preCall", "knowledgePower", "gamesZones", "rulesWedge", "salesCall"].includes(current));
   progressBar.style.width = `${Math.max(0, index) / (screens.length - 1) * 100}%`;
   sectionLabel.textContent = current === "menu" ? "Main menu" : `The Wedge Workshop · ${index} of ${screens.length - 1}`;
   document.querySelector('[data-action="back"]').disabled = current === "menu" && historyStack.length === 0;
-  document.querySelector('[data-action="next"]').disabled = current === "knowledgePower";
+  document.querySelector('[data-action="next"]').disabled = current === "salesCall";
 
-  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, pain: painScreen, painModel: painModelScreen, painMemory: painMemoryScreen, motivates: motivatesScreen, hooverRiver: () => hooverScreen("river"), hooverLake: () => hooverScreen("lake"), hooverCompare: () => hooverScreen("compare"), ladder: ladderScreen, differentiate: differentiateScreen, competition: competitionScreen, preCall: preCallScreen, knowledgePower: knowledgePowerScreen };
+  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, pain: painScreen, painModel: painModelScreen, painMemory: painMemoryScreen, motivates: motivatesScreen, hooverRiver: () => hooverScreen("river"), hooverLake: () => hooverScreen("lake"), hooverCompare: () => hooverScreen("compare"), ladder: ladderScreen, differentiate: differentiateScreen, competition: competitionScreen, preCall: preCallScreen, knowledgePower: knowledgePowerScreen, gamesZones: gamesZonesScreen, rulesWedge: rulesWedgeScreen, salesCall: salesCallScreen };
   app.innerHTML = templates[current]();
   app.focus({ preventScroll: true });
 }
@@ -250,9 +250,9 @@ function menuScreen() {
     ["Know Your Competition", "competition"],
     ["Pre-Call Strategy", "preCall"],
     ["Knowledge Is Power", "knowledgePower"],
-    ["Games and Zones", ""],
-    ["Rules of The Wedge", ""],
-    ["The Wedge Sales Process", ""],
+    ["Games and Zones", "gamesZones"],
+    ["Rules of The Wedge", "rulesWedge"],
+    ["The Wedge Sales Process", "salesCall"],
     ["How The Wedge Busts Incumbent Relationships", ""],
     ["Conclusion", ""]
   ];
@@ -766,13 +766,128 @@ function knowledgePowerScreen() {
     <button class="kip-clear" data-kip="clear">CLEAR</button>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="preCall" aria-label="Previous slide">◀</button>
-    <button class="legacy-slide-arrow next" data-action="home" aria-label="Close">▶</button>
+    <button class="legacy-slide-arrow next" data-screen="gamesZones" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
       <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
       <button data-action="calculator">calculator</button>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
+  </section>`;
+}
+
+function gamesZonesScreenPlaceholder() {
+  return `<section class="legacy-lesson-slide games-zones-slide" aria-label="Games and Zones">
+    <div class="legacy-slide-arcs" aria-hidden="true"></div>
+    <h1>Games and Zones</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="games-stage">
+      <div class="games-video-card">
+        <video controls preload="metadata" poster="assets/wedge-logo.gif" aria-label="Games and Zones original training video">
+          <source src="assets/games-zones.flv" type="video/x-flv">
+        </video>
+        <div class="games-video-fallback">
+          <h2>Original training video</h2>
+          <p>The Flash version used this lesson as a video segment. The original FLV file is preserved here in the prototype assets.</p>
+          <a href="assets/games-zones.flv" download>Open / download original video</a>
+        </div>
+      </div>
+      <aside class="games-panel">
+        <h2>Lesson guide</h2>
+        <button class="games-card" data-zone="comfort">
+          <strong>Comfort Zone</strong>
+          <span>Where existing relationships, habits, and safe conversations live.</span>
+        </button>
+        <button class="games-card" data-zone="stretch">
+          <strong>Stretch Zone</strong>
+          <span>Where the producer asks questions that reveal hidden pain.</span>
+        </button>
+        <button class="games-card" data-zone="danger">
+          <strong>Danger Zone</strong>
+          <span>Where the prospect feels pressure, risk, or loss of control.</span>
+        </button>
+        <p id="games-zone-detail">Click a zone to reveal the coaching point.</p>
+      </aside>
+    </div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="knowledgePower" aria-label="Previous slide">â—€</button>
+    <button class="legacy-slide-arrow next" data-screen="gamesZones" aria-label="Next slide">â–¶</button>
+    <div class="legacy-slide-footer">
+      <p>Â©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
+}
+
+function gamesZonesScreen() {
+  return `<section class="legacy-lesson-slide games-zones-slide" aria-label="Games and Zones">
+    <h1>GAMES AND ZONES</h1>
+    <p class="games-zones-subtitle">How big of a game are you playing?</p>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="games-zones-stack" aria-label="Games and zones size diagram">
+      <div class="games-zone-ball games-zone-big"><span>BIG</span></div>
+      <div class="games-zone-divider" aria-hidden="true"></div>
+      <div class="games-zone-ball games-zone-medium"><span>MEDIUM</span></div>
+      <div class="games-zone-divider" aria-hidden="true"></div>
+      <div class="games-zone-ball games-zone-small"><span>SMALL</span></div>
+    </div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="knowledgePower" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="rulesWedge" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
+}
+
+function rulesWedgeScreen() {
+  const rules = [
+    "The Law of Physics says that no two objects can occupy the same space at the same time.",
+    "Nothing is either good or bad except by comparison.",
+    "It is easier to get someone to deny what they have is perfection than to get them to admit there is a problem.",
+    "The easiest way to get someone defensive is to talk negatively about a decision they have made.",
+    "The more you push them the more they will push back to get even.",
+    "The best idea anyone ever heard was the one they thought of themselves.",
+    "To gain leverage, never ask for the sale. Make them ask you."
+  ];
+  const buttons = rules.map((text, index) => {
+    const number = index + 1;
+    const page = number < 4 ? "one" : "two";
+    return `<div class="row-rule row-rule-${number}" data-row-page="${page}">
+      <button class="row-circle" data-row-rule="${number}" aria-label="Reveal rule ${number}">${number}</button>
+      <p>${text}</p>
+    </div>`;
+  }).join("");
+
+  return `<section class="legacy-lesson-slide rules-wedge-slide row-page-one" aria-label="Rules of The Wedge">
+    <h1>Rules of The Wedge<sup>®</sup></h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="row-rules">${buttons}</div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <div class="row-controls">
+      <button class="row-clear" data-row-action="clear">CLEAR</button>
+      <button class="row-back" data-row-action="back">BACK</button>
+      <button class="row-next" data-row-action="next">NEXT</button>
+    </div>
+    <button class="legacy-slide-arrow previous" data-screen="gamesZones" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="salesCall" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
+}
+
+function salesCallScreen() {
+  return `<section class="legacy-lesson-slide sales-call-slide" aria-label="The Wedge Sales Process">
+    <iframe src="sales-call.html" title="The Wedge Sales Process"></iframe>
   </section>`;
 }
 
@@ -801,6 +916,41 @@ function handleCalculator(key) {
   display.value += key;
 }
 
+function revealRowRule(slide, number) {
+  if (!slide) return;
+  const rule = slide.querySelector(`.row-rule-${number}`);
+  rule?.classList.add("revealed");
+  if (number === 3) slide.classList.add("row-show-next");
+}
+
+function rowNext(slide) {
+  if (!slide) return;
+  slide.classList.remove("row-page-one", "row-show-next");
+  slide.classList.add("row-page-two");
+  slide.querySelectorAll(".row-rule").forEach(rule => rule.classList.remove("revealed"));
+  revealRowRule(slide, 4);
+}
+
+function rowBack(slide) {
+  if (!slide) return;
+  if (slide.classList.contains("row-page-two")) {
+    slide.classList.remove("row-page-two");
+    slide.classList.add("row-page-one", "row-show-next");
+    slide.querySelectorAll(".row-rule").forEach(rule => rule.classList.remove("revealed"));
+    [1, 2, 3].forEach(number => revealRowRule(slide, number));
+    return;
+  }
+  slide.querySelectorAll(".row-rule").forEach(rule => rule.classList.remove("revealed"));
+  slide.classList.remove("row-show-next");
+}
+
+function rowClear(slide) {
+  if (!slide) return;
+  slide.classList.remove("row-page-two", "row-show-next");
+  slide.classList.add("row-page-one");
+  slide.querySelectorAll(".row-rule").forEach(rule => rule.classList.remove("revealed"));
+}
+
 document.addEventListener("click", event => {
   const target = event.target.closest("button");
   const painModelSlide = event.target.closest(".pain-model-slide");
@@ -815,6 +965,17 @@ document.addEventListener("click", event => {
     return;
   }
   if (target.dataset.menuSection) {
+    return;
+  }
+  if (target.dataset.rowRule) {
+    revealRowRule(target.closest(".rules-wedge-slide"), Number(target.dataset.rowRule));
+    return;
+  }
+  if (target.dataset.rowAction) {
+    const slide = target.closest(".rules-wedge-slide");
+    if (target.dataset.rowAction === "next") rowNext(slide);
+    if (target.dataset.rowAction === "back") rowBack(slide);
+    if (target.dataset.rowAction === "clear") rowClear(slide);
     return;
   }
   if (target.dataset.screen) navigate(target.dataset.screen);
@@ -858,6 +1019,22 @@ document.addEventListener("click", event => {
     } else {
       target.classList.add("revealed");
     }
+    return;
+  }
+  if (target.closest(".kip-slide") && target.classList.contains("next")) {
+    navigate("gamesZones");
+    return;
+  }
+  if (target.dataset.zone) {
+    const detail = document.querySelector("#games-zone-detail");
+    const notes = {
+      comfort: "Coaching point: start where the buyer feels safe, then ask a question that gently exposes what is not working.",
+      stretch: "Coaching point: this is where The Wedge lives. The buyer begins comparing the incumbent relationship to the problem they now see.",
+      danger: "Coaching point: slow down. If the buyer feels pushed, return to questions and let them own the conclusion."
+    };
+    target.closest(".games-panel")?.querySelectorAll(".games-card").forEach(card => card.classList.remove("revealed"));
+    target.classList.add("revealed");
+    if (detail) detail.textContent = notes[target.dataset.zone] || "Click a zone to reveal the coaching point.";
     return;
   }
   if (target.dataset.painChoice) {
