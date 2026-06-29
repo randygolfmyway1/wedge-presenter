@@ -1,4 +1,4 @@
-const screens = ["menu", "objective", "company", "survey", "components", "painModel", "ladder"];
+const screens = ["menu", "objective", "company", "survey", "components", "painModel", "painMemory", "motivates", "hooverRiver", "hooverLake", "hooverCompare", "ladder", "differentiate", "competition", "preCall", "knowledgePower"];
 let current = "menu";
 let historyStack = [];
 let painStep = 0;
@@ -7,6 +7,7 @@ let activeMenuSection = null;
 let suppressPainModelClickUntil = 0;
 const painChoiceClasses = ["checked-cost", "checked-time", "checked-resource", "checked-capability", "checked-effort"];
 const painXoutClasses = ["xout-cost", "xout-time", "xout-resource", "xout-capability", "xout-effort"];
+const lypBoxClasses = ["lyp-box-1", "lyp-box-2", "lyp-box-3", "lyp-box-4", "lyp-box-5", "lyp-box-6", "lyp-box-7"];
 
 const app = document.querySelector("#app");
 const modal = document.querySelector("#modal");
@@ -39,15 +40,121 @@ function navigate(next, push = true) {
 function render() {
   const index = screens.indexOf(current);
   document.querySelector(".app-shell").classList.toggle("legacy-menu-active", current === "menu");
-  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "pain", "painModel"].includes(current));
+  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "pain", "painModel", "painMemory", "motivates", "hooverRiver", "hooverLake", "hooverCompare", "ladder", "differentiate", "competition", "preCall", "knowledgePower"].includes(current));
   progressBar.style.width = `${Math.max(0, index) / (screens.length - 1) * 100}%`;
   sectionLabel.textContent = current === "menu" ? "Main menu" : `The Wedge Workshop · ${index} of ${screens.length - 1}`;
   document.querySelector('[data-action="back"]').disabled = current === "menu" && historyStack.length === 0;
-  document.querySelector('[data-action="next"]').disabled = current === "ladder";
+  document.querySelector('[data-action="next"]').disabled = current === "knowledgePower";
 
-  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, pain: painScreen, painModel: painModelScreen, ladder: ladderScreen };
+  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, pain: painScreen, painModel: painModelScreen, painMemory: painMemoryScreen, motivates: motivatesScreen, hooverRiver: () => hooverScreen("river"), hooverLake: () => hooverScreen("lake"), hooverCompare: () => hooverScreen("compare"), ladder: ladderScreen, differentiate: differentiateScreen, competition: competitionScreen, preCall: preCallScreen, knowledgePower: knowledgePowerScreen };
   app.innerHTML = templates[current]();
   app.focus({ preventScroll: true });
+}
+
+function revealPainMemory(slide, reveal) {
+  if (!slide || !reveal) return;
+  if (reveal === "boxes") {
+    const currentBoxes = lypBoxClasses.filter(name => slide.classList.contains(name)).length;
+    const nextCount = currentBoxes < 1 ? 1 : currentBoxes < 3 ? 3 : 7;
+    for (let i = 0; i < nextCount; i++) slide.classList.add(lypBoxClasses[i]);
+    slide.classList.add("show-active-line");
+    return;
+  }
+  if (reveal === "stanford") {
+    slide.classList.add("show-stanford", "show-active-line", "lyp-box-1");
+    return;
+  }
+  if (reveal === "close-stanford") {
+    slide.classList.remove("show-stanford");
+    slide.classList.add("stanford-closed");
+    return;
+  }
+  if (reveal === "close-conditions") {
+    slide.classList.add("conditions-closed");
+    return;
+  }
+  if (reveal === "close-dialog") {
+    slide.classList.remove("show-dialog");
+    return;
+  }
+  if (reveal === "problem") slide.classList.add("latent-engaged");
+  if (reveal === "solution") slide.classList.add("show-problem");
+  if (reveal === "hope") slide.classList.add("show-problem", "show-solution", "show-proactive");
+  if (reveal === "proactive") slide.classList.add("show-problem", "show-solution", "show-hope");
+  if (reveal === "dialog") slide.classList.add("show-problem", "show-solution", "show-hope", "show-proactive", "show-dialog");
+  slide.classList.add(`show-${reveal}`);
+}
+
+function clickPainMemoryBox(slide, box) {
+  if (!slide || !box) return;
+  if (!lypBoxClasses.every(name => slide.classList.contains(name))) {
+    revealPainMemory(slide, "boxes");
+    return;
+  }
+  const greenClass = `green-${box}`;
+  const redClass = `red-${box}`;
+  if (!slide.classList.contains(greenClass) && !lypBoxClasses.every((_, index) => slide.classList.contains(`green-${index + 1}`))) {
+    slide.classList.add(greenClass);
+    return;
+  }
+  if (lypBoxClasses.every((_, index) => slide.classList.contains(`green-${index + 1}`))) {
+    slide.classList.add(redClass);
+  }
+}
+
+function revealLoa(slide, action) {
+  if (!slide) return;
+  const stages = ["show-root", "show-top", "show-blue-1", "show-blue-2", "show-blue-3", "show-blue-driver", "show-blue-teams", "show-blue-direct", "show-blue-indirect", "show-orange-1", "show-orange-driver", "show-orange-classroom", "show-orange-owner", "show-orange-2", "show-orange-3"];
+  if (action === "none") return;
+  if (action === "clear") {
+    slide.classList.remove(...stages);
+    slide.classList.add("show-root");
+    return;
+  }
+  if (action === "all") {
+    slide.classList.add(...stages);
+    return;
+  }
+  if (action === "direct-cost") {
+    slide.classList.add("show-blue-direct");
+    return;
+  }
+  if (action === "indirect-cost") {
+    slide.classList.add("show-blue-indirect");
+    return;
+  }
+  if (action === "driver-incentive") {
+    slide.classList.add("show-blue-driver");
+    return;
+  }
+  if (action === "teams") {
+    slide.classList.add("show-blue-teams");
+    return;
+  }
+  if (action === "plan") {
+    slide.classList.remove("show-blue-1", "show-blue-2", "show-blue-3", "show-blue-driver", "show-blue-teams", "show-blue-direct", "show-blue-indirect");
+    slide.classList.add("show-top", "show-orange-1");
+    return;
+  }
+  if (action === "buyin") {
+    slide.classList.remove("show-orange-1", "show-orange-driver", "show-orange-classroom", "show-orange-owner", "show-orange-2", "show-orange-3");
+    slide.classList.add("show-top", "show-blue-1");
+    return;
+  }
+  if (action === "driver-training") {
+    slide.classList.add("show-orange-driver");
+    return;
+  }
+  if (action === "classroom") {
+    slide.classList.add("show-orange-classroom");
+    return;
+  }
+  if (action === "owner-communication") {
+    slide.classList.add("show-orange-owner");
+    return;
+  }
+  const currentIndex = stages.findLastIndex(name => slide.classList.contains(name));
+  slide.classList.add(stages[Math.min(stages.length - 1, currentIndex + 1)]);
 }
 
 function revealPainModel(slide, reveal) {
@@ -135,13 +242,14 @@ function menuScreen() {
     ["Survey Results", "survey"],
     ["3 Major Components of Business", "components"],
     ["Locate Your Prospect's Pain", "painModel"],
-    ["What Motivates People?", ""],
-    ["Hoover Dam", ""],
+    ["Active / Latent Memory", "painMemory"],
+    ["What Motivates People?", "motivates"],
+    ["Hoover Dam", "hooverRiver"],
     ["Ladder of Abstraction", "ladder"],
-    ["Differentiate", ""],
-    ["Know Your Competition", ""],
-    ["Pre-Call Strategy", ""],
-    ["Knowledge Is Power", ""],
+    ["Differentiate", "differentiate"],
+    ["Know Your Competition", "competition"],
+    ["Pre-Call Strategy", "preCall"],
+    ["Knowledge Is Power", "knowledgePower"],
     ["Games and Zones", ""],
     ["Rules of The Wedge", ""],
     ["The Wedge Sales Process", ""],
@@ -366,20 +474,304 @@ function painModelScreen() {
     <button class="pain-model-hotspot pain-model-condition-button" data-pain-reveal="condition" aria-label="Reveal condition"></button>
     <button class="pain-model-hotspot pain-model-clear" data-action="pain-model-clear" aria-label="Clear"></button>
     <button class="pain-model-hotspot pain-model-back" data-screen="components" aria-label="Previous slide"></button>
-    <button class="pain-model-hotspot pain-model-next" data-screen="ladder" aria-label="Next slide"></button>
+    <button class="pain-model-hotspot pain-model-next" data-screen="painMemory" aria-label="Next slide"></button>
+  </section>`;
+}
+
+function painMemoryScreen() {
+  const boxes = Array.from({ length: 7 }, (_, i) => `<button class="lyp-box lyp-box-${i + 1}" data-lyp-box="${i + 1}" aria-label="Memory box ${i + 1}"></button>`).join("");
+  return `<section class="legacy-lesson-slide pain-memory-slide" aria-label="Locating your prospect's hidden pain memory model">
+    <h1>LOCATING YOUR PROSPECT'S HIDDEN PAIN</h1>
+    <img class="pain-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <img class="lyp-head" src="assets/lyp-head.png" alt="Active and latent memory">
+    <div class="lyp-reveals" aria-hidden="true">
+      <div class="lyp-stanford-card">
+        <div class="stanford-seal">S</div>
+        <div class="stanford-word">STANFORD</div>
+        <div class="stanford-subword">UNIVERSITY</div>
+      </div>
+      <div class="lyp-conditions-cover"></div>
+      <div class="lyp-active-line"></div>
+      <div class="lyp-boxes">${boxes}</div>
+      <div class="lyp-problem-arrow">Problem</div>
+      <div class="lyp-solution-arrow">Solution</div>
+      <div class="lyp-hope-arrow">Hope</div>
+      <div class="lyp-reactive-wedges">REACTIVE WEDGES<span></span></div>
+      <div class="lyp-proactive-wedges">PROACTIVE WEDGES<span></span></div>
+      <div class="lyp-dialog">
+        <p>When your agent<br>came out 90 days after renewal<br>to do a claims review<br>and they got out your loss runs<br>-<br>-<br>-<br>so you wouldn't have to worry about....<br>are you comfortable with how they went through the process?</p>
+      </div>
+    </div>
+    <button class="lyp-hotspot lyp-active-hotspot" data-lyp-reveal="stanford" aria-label="Active memory"></button>
+    <button class="lyp-hotspot lyp-box-seed" data-lyp-reveal="boxes" aria-label="Reveal active memory boxes"></button>
+    <button class="lyp-hotspot lyp-stanford-close" data-lyp-reveal="close-stanford" aria-label="Close Stanford"></button>
+    <button class="lyp-hotspot lyp-conditions-close" data-lyp-reveal="close-conditions" aria-label="Close Conditions"></button>
+    <button class="lyp-hotspot lyp-latent-hotspot" data-lyp-reveal="problem" aria-label="Latent memory"></button>
+    <button class="lyp-hotspot lyp-problem-hotspot" data-lyp-reveal="solution" aria-label="Reveal solution"></button>
+    <button class="lyp-hotspot lyp-solution-hotspot" data-lyp-reveal="hope" aria-label="Reveal hope"></button>
+    <button class="lyp-hotspot lyp-hope-hotspot" data-lyp-reveal="proactive" aria-label="Reveal proactive wedges"></button>
+    <button class="lyp-hotspot lyp-proactive-hotspot" data-lyp-reveal="dialog" aria-label="Open proactive dialogue"></button>
+    <button class="lyp-hotspot lyp-dialog-close" data-lyp-reveal="close-dialog" aria-label="Close dialogue"></button>
+    <button class="lyp-hotspot lyp-clear" data-action="pain-memory-clear" aria-label="Clear"></button>
+    <button class="legacy-slide-arrow previous" data-screen="painModel" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="motivates" aria-label="Next slide">▶</button>
+  </section>`;
+}
+
+function motivatesScreen() {
+  return `<section class="legacy-lesson-slide motivates-slide" aria-label="What Motivates People">
+    <h1>What Motivates People</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <img class="motivates-pie-art" src="assets/motivates-pie.png" alt="Avoid pain 60 - 70 percent, pleasure 30 - 35 percent">
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="painMemory" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="hooverRiver" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
+}
+
+function hooverScreen(stage = "compare") {
+  const isRiver = stage === "river";
+  const isLake = stage === "lake";
+  const isCompare = stage === "compare";
+  const previous = isRiver ? "motivates" : isLake ? "hooverRiver" : "hooverLake";
+  const next = isRiver ? "hooverLake" : isLake ? "hooverCompare" : "ladder";
+  return `<section class="legacy-lesson-slide hoover-slide hoover-${stage}" aria-label="Hoover Dam Analogy">
+    ${isRiver ? `<div class="hoover-river-title"><div>LADDER OF ABSTRACTION:</div><strong>Hoover Dam – River View</strong></div>` : ""}
+    ${isLake ? `<div class="hoover-river-title hoover-lake-title"><div>LADDER OF ABSTRACTION:</div><strong>Hoover Dam – Lake View</strong></div>` : ""}
+    ${isCompare ? `<div class="hoover-river-title hoover-side-title"><div>LADDER OF ABSTRACTION:</div><strong>Hoover Dam – Side-by-Side</strong></div>` : ""}
+    ${!isRiver && !isLake && !isCompare ? `<h1>Introduction: Ladder of Abstraction – Hoover Dam Analogy</h1>` : ""}
+    <img class="${isRiver || isLake || isCompare ? "legacy-slide-logo" : "hoover-logo"}" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="hoover-watermark">Hoover Dam</div>
+    ${isRiver ? `<img class="hoover-river-photo" src="assets/hoover-river-view.png" alt="Hoover Dam river view">
+    <div class="hoover-river-text"><strong>Differentiation:</strong><br>Build the Client's<br>Perspective.</div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>` : ""}
+    ${isLake ? `<img class="hoover-lake-photo" src="assets/hoover-lake-side.jpg" alt="Hoover Dam lake side">
+    <div class="hoover-river-text hoover-lake-text"><strong>Differentiation:</strong><br>Build the Client's<br>Perspective.</div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>` : ""}
+    ${isCompare ? `<div class="hoover-side-photos">
+      <img class="hoover-side-dam" src="assets/hoover-dam-face.jpg" alt="Hoover Dam face">
+      <img class="hoover-side-lake" src="assets/hoover-lake-side.jpg" alt="Hoover Dam lake side">
+      <div class="hoover-side-text"><strong>Differentiation:</strong><br>Build the Client's<br>Perspective.</div>
+    </div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>` : ""}
+    <div class="hoover-tabs" aria-label="Hoover Dam analogy sections">
+      <button data-screen="hooverRiver">River Side</button>
+      <button data-screen="hooverLake">Lake Side</button>
+      <button data-screen="hooverCompare">700 Feet of Secret</button>
+      <button>Both Sides</button>
+      <button>The Challenge</button>
+    </div>
+    <button class="legacy-slide-arrow previous" data-screen="${previous}" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="${next}" aria-label="Next slide">▶</button>
   </section>`;
 }
 
 function ladderScreen() {
-  const levels = ladderData[ladderExample];
-  return `<section class="screen">
-    <header class="lesson-header"><span class="eyebrow">Interactive model</span><h1>Ladder of Abstraction</h1><p class="lead">Move from broad concepts toward specific evidence. Choose an example, then click a node for guidance.</p></header>
-    <div class="ladder-layout">
-      <div class="example-tabs">${Object.keys(ladderData).map(name => `<button class="example-tab ${name === ladderExample ? "selected" : ""}" data-example="${name}">${name}</button>`).join("")}</div>
-      <div class="tree">
-        ${levels.map(level => `<div class="tree-level">${level.map(label => `<button class="tree-node" data-node="${label}">${label}</button>`).join("")}</div>`).join("")}
-        <p class="tree-detail" id="tree-detail">Select a node to focus the discussion.</p>
-      </div>
+  return `<section class="legacy-lesson-slide loa-slide show-root" aria-label="Ladder of Abstraction">
+    <h1>Ladder of Abstraction</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="loa-mode-icons" aria-hidden="true"><span>D</span><span>R</span><span>H</span><span class="active">L</span></div>
+    <div class="loa-tree">
+      <svg class="loa-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <g class="loa-line-set loa-top-lines"><path d="M54 8 V15 H38 V22"/><path d="M54 15 H68 V22"/></g>
+        <g class="loa-line-set loa-blue-lines-1"><path d="M38 26 V33 H28 V37"/><path d="M38 33 H48 V37"/></g>
+        <g class="loa-line-set loa-blue-lines-2"><path d="M28 41 V51"/></g>
+        <g class="loa-line-set loa-blue-driver-lines"><path d="M48 41 V47 H43 V51"/><path d="M48 47 H60 V51"/></g>
+        <g class="loa-line-set loa-blue-lines-3"><path d="M28 56 V62 H21 V66"/><path d="M28 62 H35 V66"/></g>
+        <g class="loa-line-set loa-blue-teams-lines"><path d="M60 56 V62 H49 V66"/><path d="M60 62 H66 V66"/></g>
+        <g class="loa-line-set loa-blue-direct-lines"><path d="M20 70 V76 H14 V82"/><path d="M20 76 H32 V82"/></g>
+        <g class="loa-line-set loa-blue-indirect-lines"><path d="M35 70 V76 H48 V82"/><path d="M35 76 H65 V82"/><path d="M35 76 H81 V82"/></g>
+        <g class="loa-line-set loa-orange-lines-1"><path d="M68 26 V33 H51 V37"/><path d="M68 33 H80 V37"/></g>
+        <g class="loa-line-set loa-orange-lines-2"><path d="M51 41 V47 H42 V52"/><path d="M51 47 H61 V52"/></g>
+        <g class="loa-line-set loa-orange-lines-3"><path d="M43 56 V67"/><path d="M38 71 V77 H27 V82"/><path d="M38 77 H43 V82"/><path d="M38 77 H59 V82"/></g>
+        <g class="loa-line-set loa-orange-owner-lines"><path d="M80 41 V52"/><path d="M80 56 V67"/></g>
+      </svg>
+      <button class="loa-node green root" data-loa-action="next">LOSS<br>CONTROL</button>
+      <button class="loa-node blue buyin" data-loa-action="buyin">BUY-IN</button>
+      <button class="loa-node orange plan" data-loa-action="plan">PLAN OF<br>ACTION</button>
+      <button class="loa-node blue owner-cost" data-loa-action="next">OWNER'S<br>COST</button>
+      <button class="loa-node blue driver-incentive" data-loa-action="driver-incentive">DRIVER<br>INCENTIVE</button>
+      <button class="loa-node blue spreadsheet" data-loa-action="next">SPREADSHEET</button>
+      <button class="loa-node blue bonus-pool" data-loa-action="none">BONUS<br>POOL</button>
+      <button class="loa-node blue teams" data-loa-action="teams">TEAMS</button>
+      <button class="loa-node blue direct-cost" data-loa-action="direct-cost">DIRECT<br>COST</button>
+      <button class="loa-node blue indirect-cost" data-loa-action="indirect-cost">INDIRECT<br>COST</button>
+      <button class="loa-node blue a-node" data-loa-action="next">A</button>
+      <button class="loa-node blue b-node" data-loa-action="next">B</button>
+      <button class="loa-node blue premiums" data-loa-action="next">PREMIUMS</button>
+      <button class="loa-node blue deductibles" data-loa-action="next">DEDUCTIBLES</button>
+      <button class="loa-node blue pay-overtime" data-loa-action="next">PAY<br>OVERTIME</button>
+      <button class="loa-node blue recruiting" data-loa-action="next">RECRUITING</button>
+      <button class="loa-node blue training" data-loa-action="next">TRAINING</button>
+      <button class="loa-node orange driver-training" data-loa-action="driver-training">DRIVER<br>TRAINING</button>
+      <button class="loa-node orange owner-communication" data-loa-action="owner-communication">OWNER<br>COMMUNICATION</button>
+      <button class="loa-node orange classroom" data-loa-action="classroom">CLASSROOM<br>INTERACTION</button>
+      <button class="loa-node orange av" data-loa-action="none">AV</button>
+      <button class="loa-node orange draft-letter" data-loa-action="next">DRAFT<br>LETTER</button>
+      <button class="loa-node orange prevent" data-loa-action="next">HOW TO PREVENT<br>ACCIDENTS</button>
+      <button class="loa-node orange workmans" data-loa-action="next">BACKING</button>
+      <button class="loa-node orange send-drivers" data-loa-action="next">INTERSECTION</button>
+      <button class="loa-node orange rear" data-loa-action="next">REAR</button>
+      <button class="loa-node orange send-all-drivers" data-loa-action="next">SEND TO<br>ALL DRIVERS</button>
+    </div>
+    <div class="loa-step-buttons" aria-label="Ladder steps">
+      <button data-loa-action="next">1</button>
+      <button data-loa-action="next">2</button>
+      <button data-loa-action="all">3</button>
+    </div>
+    <button class="loa-overview" data-loa-action="clear">OVERVIEW</button>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="hooverCompare" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="differentiate" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
+}
+
+function differentiateScreen() {
+  return `<section class="legacy-lesson-slide differentiate-slide" aria-label="Differentiate">
+    <h1>DIFFERENTIATE</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <svg class="differentiate-swoosh" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="differentiate-swoosh-top" d="M24 39 C42 17 66 4 85 6"/>
+      <path class="differentiate-swoosh-mid" d="M18 58 C33 76 66 68 88 56"/>
+      <path class="differentiate-swoosh-bottom" d="M24 61 C9 82 24 95 73 84"/>
+    </svg>
+    <div class="differentiate-boxes" aria-label="Differentiate reveal boxes">
+      <button class="differentiate-box" data-differentiate="unique"><span>Unique</span></button>
+      <button class="differentiate-box" data-differentiate="process"><span>Better<br>Process</span></button>
+      <button class="differentiate-box" data-differentiate="articulate"><span>Articulate</span></button>
+    </div>
+    <button class="differentiate-clear" data-differentiate="clear">CLEAR</button>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="ladder" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="competition" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
+}
+
+function competitionScreen() {
+  const rows = Array.from({ length: 9 }, () => `<div class="kyc-row-label"></div>${Array.from({ length: 7 }, () => `<div></div>`).join("")}`).join("");
+  return `<section class="legacy-lesson-slide kyc-slide" aria-label="Know Your Competition">
+    <h1>Know Your Competition</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="kyc-grid-wrap" aria-label="Proactive Services comparison grid">
+      <h2>PROACTIVE SERVICES</h2>
+      <svg class="kyc-headers" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="0" y1="100" x2="12" y2="0"></line>
+        <line x1="14.286" y1="100" x2="26.286" y2="0"></line>
+        <line x1="28.571" y1="100" x2="40.571" y2="0"></line>
+        <line x1="42.857" y1="100" x2="54.857" y2="0"></line>
+        <line x1="57.143" y1="100" x2="69.143" y2="0"></line>
+        <line x1="71.429" y1="100" x2="83.429" y2="0"></line>
+        <line x1="85.714" y1="100" x2="97.714" y2="0"></line>
+        <line x1="100" y1="100" x2="112" y2="0"></line>
+      </svg>
+      <div class="kyc-grid">${rows}</div>
+    </div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="differentiate" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="preCall" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
+}
+
+function preCallScreen() {
+  const buyerBox = () => `<div class="pcs-buyer-card">
+    <p>Name:</p>
+    <p>Title:</p>
+    <p>Buyer Type:</p>
+  </div>`;
+  return `<section class="legacy-lesson-slide pcs-slide" aria-label="Pre-Call Strategy">
+    <h1>Pre-Call Strategy<sup>TM</sup></h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="pcs-field pcs-business"><div>BUSINESS NAME (Prospect)</div></div>
+    <div class="pcs-buyers">
+      <div class="pcs-buyers-head">BUYERS</div>
+      ${buyerBox()}${buyerBox()}${buyerBox()}
+    </div>
+    <div class="pcs-pain-arrow">
+      <div class="pcs-pain-title">TOP 3 "MOST PROBABLE" PAINS</div>
+      <span></span><span></span><span></span>
+    </div>
+    <div class="pcs-field pcs-revenue"><div>$ REVENUE</div></div>
+    <div class="pcs-incumbent">
+      <div>INCUMBENT</div>
+      <p>Agent:</p>
+      <p>Agency:</p>
+      <p>Carrier:</p>
+    </div>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="competition" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-screen="knowledgePower" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
+  </section>`;
+}
+
+function knowledgePowerScreen() {
+  return `<section class="legacy-lesson-slide kip-slide" aria-label="Knowledge Is Power">
+    <h1>KNOWLEDGE IS POWER – Four Levels of Knowing</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="kip-boxes" aria-label="Four levels of knowing">
+      <button class="kip-box kip-know" data-kip="know"><span>Know</span></button>
+      <button class="kip-box kip-know-about" data-kip="know-about"><span>Know<br>About</span></button>
+      <button class="kip-box kip-dont-know" data-kip="dont-know"><span>Don't<br>Know</span></button>
+    </div>
+    <svg class="kip-wave" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 6 C4 2 8 2 12 6 S20 10 24 6 S32 2 36 6 S44 10 48 6 S56 2 60 6 S68 10 72 6 S80 2 84 6 S96 10 100 4"></path>
+    </svg>
+    <button class="kip-clear" data-kip="clear">CLEAR</button>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="preCall" aria-label="Previous slide">◀</button>
+    <button class="legacy-slide-arrow next" data-action="home" aria-label="Close">▶</button>
+    <div class="legacy-slide-footer">
+      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
+      <button data-action="calculator">calculator</button>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
     </div>
   </section>`;
 }
@@ -412,6 +804,7 @@ function handleCalculator(key) {
 document.addEventListener("click", event => {
   const target = event.target.closest("button");
   const painModelSlide = event.target.closest(".pain-model-slide");
+  const painMemorySlide = event.target.closest(".pain-memory-slide");
   if (painModelSlide && Date.now() < suppressPainModelClickUntil) return;
   if (!target) {
     if (painModelSlide) revealPainModelFromPoint(painModelSlide, event.clientX, event.clientY);
@@ -435,6 +828,38 @@ document.addEventListener("click", event => {
   if (target.dataset.calc) handleCalculator(target.dataset.calc);
   if (target.dataset.component) target.classList.add("revealed");
   if (target.dataset.serviceType) target.classList.add("revealed");
+  if (target.dataset.lypBox) {
+    clickPainMemoryBox(target.closest(".pain-memory-slide"), target.dataset.lypBox);
+    return;
+  }
+  if (target.dataset.lypReveal) {
+    const slide = target.closest(".pain-memory-slide");
+    if (target.dataset.lypReveal === "close-dialog") slide?.classList.remove("show-dialog");
+    else revealPainMemory(slide, target.dataset.lypReveal);
+    return;
+  }
+  if (target.dataset.loaAction) {
+    revealLoa(target.closest(".loa-slide"), target.dataset.loaAction);
+    return;
+  }
+  if (target.dataset.differentiate) {
+    const slide = target.closest(".differentiate-slide");
+    if (target.dataset.differentiate === "clear") {
+      slide?.querySelectorAll(".differentiate-box").forEach(box => box.classList.remove("revealed"));
+    } else {
+      target.classList.add("revealed");
+    }
+    return;
+  }
+  if (target.dataset.kip) {
+    const slide = target.closest(".kip-slide");
+    if (target.dataset.kip === "clear") {
+      slide?.querySelectorAll(".kip-box").forEach(box => box.classList.remove("revealed"));
+    } else {
+      target.classList.add("revealed");
+    }
+    return;
+  }
   if (target.dataset.painChoice) {
     checkPainChoice(target.closest(".pain-model-slide"), target.dataset.painChoice);
     return;
@@ -478,6 +903,11 @@ document.addEventListener("click", event => {
       target.closest(".pain-model-slide")?.classList.remove("show-bubble", "show-problem", "show-solution", "show-fix", "show-problem-x", "show-no-solution", "show-forget", "show-condition", ...painChoiceClasses, ...painXoutClasses);
       break;
     }
+    case "pain-memory-clear": {
+      const slide = target.closest(".pain-memory-slide");
+      if (slide) slide.className = "legacy-lesson-slide pain-memory-slide";
+      break;
+    }
     case "components-clear": {
       document.querySelectorAll(".components-boxes button, .service-oval").forEach(el => el.classList.remove("revealed"));
       break;
@@ -486,6 +916,10 @@ document.addEventListener("click", event => {
 });
 
 document.addEventListener("mousedown", event => {
+  if (event.target.closest(".pain-memory-slide button")) {
+    event.preventDefault();
+    return;
+  }
   const target = event.target.closest(".legacy-submenu button[data-screen]");
   if (!target) return;
   event.preventDefault();
