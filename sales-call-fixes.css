@@ -6,6 +6,7 @@
 .solution-label { left: 4.5%; }
 .commitment-label { left: 36%; }
 .teaching-panel { left: 5%; top: 38.5%; width: 70%; font-size: 3.65cqw; }
+.teaching-panel.top-row-dialog { top: 32.6%; }
 .teaching-panel.wide { left: 4%; width: 81%; }
 .teaching-panel.fishnet-dialog {
   left: 4%;
@@ -18,6 +19,9 @@
   padding: 0;
   overflow: hidden;
   font-size: 1.35cqw;
+}
+.teaching-panel.top-row-dialog.wide:has(.qualifying-table) {
+  top: 32.6%;
 }
 .qualifying-table {
   margin: 0;
@@ -318,7 +322,7 @@
   width: 45%;
   height: 52.2%;
   border: .14cqw solid #111;
-  background: #ffffcf;
+  background: #ffffff;
   font-size: 1.05cqw;
   font-weight: 700;
 }
@@ -443,7 +447,7 @@
   font-weight: 900;
 }
 .picture-script-card .script-fields .script-yellow {
-  background: #ffffcf;
+  background: #eef3f8;
 }
 .picture-script-card .script-fields .script-large {
   font-size: 1.9cqw;
@@ -1008,4 +1012,13 @@
 .sales-call-stage.philosophical-story-mode .philosophical-story-button,
 .sales-call-stage.philosophical-story-mode .stage-tools {
   visibility: hidden;
+}
+
+/* Keep all top-row Sales Process dialogue boxes aligned at the same height. */
+.teaching-panel.top-row-dialog,
+.teaching-panel.top-row-dialog.wide:has(.qualifying-table),
+.teaching-panel.top-row-dialog.wide:has(.qualifying-script),
+.teaching-panel.top-row-dialog.wide:has(.picture-perfect-panel),
+.teaching-panel.top-row-dialog:has(.shelf-script-panel) {
+  top: 32.6% !important;
 }

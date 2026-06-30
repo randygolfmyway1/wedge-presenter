@@ -8,7 +8,7 @@ Included in this pilot:
 - Click-to-reveal company differentiation exercise
 - Staged hidden-pain interaction with reset behavior
 - Four selectable Ladder of Abstraction examples
-- Working Home, Back, Next, Calculator, and About controls
+- Working Home, Back, Next, and About controls
 
 This is a self-contained prototype. It does not require Flash, installation,
 an internet connection, or a web server.

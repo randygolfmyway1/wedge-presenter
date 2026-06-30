@@ -10,14 +10,14 @@ const bottomStages = [
   { id: "vision", label: "Vision Box", family: "solution", objective: "To elicit a concrete and specific deliverable.", script: '"In regard to . . . what would you like to have happen?"' },
   { id: "replay", label: "Replay", family: "solution", objective: "To confirm what they want.", script: '"Here’s what I’m hearing you say you want . . ."' },
   { id: "whiteflag", label: "White<br>Flag", family: "commitment", objective: "To get invited in.", script: '"Okay. There is your game plan. What would you like me to do?"' },
-  { id: "transition", label: "Transition", family: "commitment", objective: "To move naturally from agreement to action.", script: '"That’s the easy part. Can we talk about the hard part next logical step would be . . ."' },
+  { id: "transition", label: "Transition", family: "commitment", objective: "To move naturally from agreement to action.", script: '"That’s the easy part. Can we talk about the hard part . . ."' },
   { id: "rehearsal", label: "Rehearsal", family: "commitment", objective: "To justify whether they can fire the incumbent agent.", script: '"Suppose for a moment...8 weeks from now..."' }
 ];
 
 const decisionStages = [
   { id: "shelf", label: "Shelf", family: "neutral", objective: "A mental shelf for placing proactive service wedges as they are developed.", script: "shelf-script" },
   { id: "gestalt", label: "Gestalt?", family: "neutral", objective: "To determine whether the separate issues have become one larger reason to move forward.", script: "gestalt-definition" },
-  { id: "transitionBranch", label: "Transition", family: "neutral", objective: "To get permission to gather additional information.", script: '"Thatâ€™s the easy part. Can we talk about the hard part next logical step would be . . ."' }
+  { id: "transitionBranch", label: "Transition", family: "neutral", objective: "To get permission to gather additional information.", script: '"That’s the easy part. Can we talk about the hard part . . ."' }
 ];
 
 const reactiveStages = [
@@ -189,6 +189,14 @@ function getActiveStage() {
   return state.reactiveActive ? getReactiveStage(state.reactiveActive) : getStage(state.active);
 }
 
+function isTopRowStage(id = state.active) {
+  return !state.reactive && (topStages.some(item => item.id === id) || ["shelf", "gestalt", "transitionBranch"].includes(id));
+}
+
+function setTeachingPanelClass(...classes) {
+  panel.className = ["teaching-panel", ...classes.filter(Boolean), isTopRowStage() ? "top-row-dialog" : ""].filter(Boolean).join(" ");
+}
+
 function selectStage(id) {
   if (!getStage(id)) return;
   state.active = id;
@@ -306,7 +314,7 @@ function renderPicturePerfectMenu() {
       const recipe = pictureRecipes.find(item => item.id === button.dataset.pictureRecipe);
       if (!recipe) return;
       panel.hidden = false;
-      panel.className = "teaching-panel wide";
+      setTeachingPanelClass("wide");
       panel.innerHTML = picturePerfectRecipeCard(recipe);
       bindPanelActions();
       document.querySelector("#picture-menu")?.remove();
@@ -324,8 +332,7 @@ function showTool(tool) {
   state.tool = tool;
   tools.querySelectorAll("button").forEach(button => button.classList.toggle("selected", button.dataset.tool === tool));
   panel.hidden = false;
-  panel.className = "teaching-panel";
-  panel.classList.toggle("reactive-panel", Boolean(state.reactiveActive));
+  setTeachingPanelClass(state.reactiveActive ? "reactive-panel" : "");
   if (item.id !== "qualifying" || tool !== "script") {
     state.qqService = null;
     state.qqMode = null;
@@ -592,7 +599,7 @@ function bindPanelActions() {
 
   panel.querySelectorAll("[data-vision-action]").forEach(button => button.addEventListener("click", () => {
     if (button.dataset.visionAction === "open") {
-      panel.className = "teaching-panel wide vision-panel";
+      setTeachingPanelClass("wide", "vision-panel");
       panel.innerHTML = visionBoxDiagram();
       bindPanelActions();
     } else if (button.dataset.visionAction === "close") {
@@ -653,7 +660,7 @@ function bindPanelActions() {
       state.qqService = null;
       renderState();
       panel.hidden = false;
-      panel.className = "teaching-panel wide";
+      setTeachingPanelClass("wide");
       panel.innerHTML = qualifyingScript();
       bindPanelActions();
     }
@@ -697,7 +704,7 @@ function clearAll() {
   state.qqService = null;
   state.qqMode = null;
   state.rehearsalMode = null;
-  panel.className = "teaching-panel";
+  setTeachingPanelClass();
   panel.innerHTML = "";
   renderState();
 }
@@ -711,8 +718,8 @@ function overview() {
 
 function utility(type) {
   const dialog = document.querySelector("#utility-dialog");
-  document.querySelector("#utility-title").textContent = type === "calculator" ? "Calculator" : "About";
-  document.querySelector("#utility-content").innerHTML = type === "calculator" ? "<p>The presenter calculator will be connected here.</p>" : "<p>Sales Call Structure — HTML replica of the original Flash interaction.</p>";
+  document.querySelector("#utility-title").textContent = "About";
+  document.querySelector("#utility-content").innerHTML = "<p>Sales Call Structure — HTML replica of the original Flash interaction.</p>";
   dialog.showModal();
 }
 

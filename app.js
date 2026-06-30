@@ -40,13 +40,13 @@ function navigate(next, push = true) {
 function render() {
   const index = screens.indexOf(current);
   document.querySelector(".app-shell").classList.toggle("legacy-menu-active", current === "menu");
-  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "pain", "painModel", "painMemory", "motivates", "hooverRiver", "hooverLake", "hooverCompare", "ladder", "differentiate", "competition", "preCall", "knowledgePower", "gamesZones", "rulesWedge", "salesCall"].includes(current));
+  document.querySelector(".app-shell").classList.toggle("legacy-slide-active", ["objective", "company", "survey", "components", "painModel", "painMemory", "motivates", "hooverRiver", "hooverLake", "hooverCompare", "ladder", "differentiate", "competition", "preCall", "knowledgePower", "gamesZones", "rulesWedge", "salesCall"].includes(current));
   progressBar.style.width = `${Math.max(0, index) / (screens.length - 1) * 100}%`;
   sectionLabel.textContent = current === "menu" ? "Main menu" : `The Wedge Workshop · ${index} of ${screens.length - 1}`;
   document.querySelector('[data-action="back"]').disabled = current === "menu" && historyStack.length === 0;
   document.querySelector('[data-action="next"]').disabled = current === "salesCall";
 
-  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, pain: painScreen, painModel: painModelScreen, painMemory: painMemoryScreen, motivates: motivatesScreen, hooverRiver: () => hooverScreen("river"), hooverLake: () => hooverScreen("lake"), hooverCompare: () => hooverScreen("compare"), ladder: ladderScreen, differentiate: differentiateScreen, competition: competitionScreen, preCall: preCallScreen, knowledgePower: knowledgePowerScreen, gamesZones: gamesZonesScreen, rulesWedge: rulesWedgeScreen, salesCall: salesCallScreen };
+  const templates = { menu: menuScreen, objective: objectiveScreen, company: companyScreen, survey: surveyScreen, components: componentsScreen, painModel: painModelScreen, painMemory: painMemoryScreen, motivates: motivatesScreen, hooverRiver: () => hooverScreen("river"), hooverLake: () => hooverScreen("lake"), hooverCompare: () => hooverScreen("compare"), ladder: ladderScreen, differentiate: differentiateScreen, competition: competitionScreen, preCall: preCallScreen, knowledgePower: knowledgePowerScreen, gamesZones: gamesZonesScreen, rulesWedge: rulesWedgeScreen, salesCall: salesCallScreen };
   app.innerHTML = templates[current]();
   app.focus({ preventScroll: true });
 }
@@ -263,7 +263,7 @@ function menuScreen() {
       </nav>`;
   return `<section class="legacy-main-menu" aria-label="Main menu">
     <aside class="legacy-menu-sidebar">
-      <h1>main menu</h1>
+      <h1>Main Menu</h1>
       <nav class="legacy-menu-groups" aria-label="Presenter sections">
         <div class="legacy-menu-group">
           <button data-unavailable>Sales Leadership™</button>
@@ -278,7 +278,7 @@ function menuScreen() {
         </div>
         <div class="legacy-menu-group">
           <button data-unavailable>Wedge Sales Culture™</button>
-          <a href="sales-call.html">Wedge® Overview - MS</a>
+          <button data-screen="salesCall">Wedge® Overview - MS</button>
           <button data-unavailable>iWin™</button>
           <button data-unavailable>Coach to the Coach™</button>
         </div>
@@ -290,8 +290,7 @@ function menuScreen() {
       <div class="legacy-menu-arcs" aria-hidden="true"></div>
       ${wedgeSubmenu}
       <div class="legacy-menu-footer">
-        <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-        <button data-action="calculator">calculator</button>
+        <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
         <button data-action="about">about</button>
       </div>
     </section>
@@ -317,8 +316,7 @@ function objectiveScreen() {
     <button class="legacy-slide-arrow previous" data-action="home" aria-label="Return to menu">◀</button>
     <button class="legacy-slide-arrow next" data-screen="company" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -327,20 +325,28 @@ function objectiveScreen() {
 
 function companyScreen() {
   return `<section class="legacy-lesson-slide company-better-slide" aria-label="How Is Your Company Better?">
-    <img class="company-better-reference" src="assets/company-better-reference.png" alt="How Is Your Company Better? four-quadrant worksheet">
-    <button class="company-hotspot pooge-hotspot" data-action="open-pooge" aria-label="POOGE"></button>
-    <button class="company-hotspot previous-hotspot" data-screen="objective" aria-label="Previous slide"></button>
-    <button class="company-hotspot next-hotspot" data-screen="survey" aria-label="Next slide"></button>
-    <button class="company-hotspot calculator-hotspot" data-action="calculator" aria-label="calculator"></button>
-    <button class="company-hotspot about-hotspot" data-action="about" aria-label="about"></button>
-    <button class="company-hotspot close-hotspot" data-action="home" aria-label="close"></button>
+    <div class="legacy-slide-arcs" aria-hidden="true"></div>
+    <h1>How Is Your Company Better?</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <p class="company-better-prompt">If what you bring to the table is the same as what they already have, they don't need you.<br>They only need you for what you do different or better.</p>
+    <div class="company-better-grid" aria-label="Four quadrant worksheet">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <button class="company-pooge-button" data-action="open-pooge">POOGE</button>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="objective" aria-label="Previous slide">&#9664;</button>
+    <button class="legacy-slide-arrow next" data-screen="survey" aria-label="Next slide">&#9654;</button>
+    <div class="legacy-slide-footer">
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
     <section class="pooge-overlay" role="dialog" aria-modal="true" aria-label="POOGE" hidden>
       <div class="legacy-slide-arcs" aria-hidden="true"></div>
       <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
       <img class="pooge-art" src="assets/pooge.png" alt="No POOGE">
       <div class="legacy-slide-footer pooge-footer">
-        <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-        <button data-action="calculator">calculator</button>
+        <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
         <button data-action="about">about</button>
         <button data-action="close-pooge">close</button>
       </div>
@@ -385,8 +391,7 @@ function surveyScreen() {
     <button class="legacy-slide-arrow previous" data-screen="company" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="components" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -396,7 +401,7 @@ function surveyScreen() {
 function componentsScreen() {
   return `<section class="legacy-lesson-slide components-slide" aria-label="3 Major Components of Business">
     <div class="legacy-slide-arcs" aria-hidden="true"></div>
-    <h1>3 MAJOR COMPONENTS OF BUSINESS</h1>
+    <h1>3 Major Components Of Business</h1>
     <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <div class="components-boxes">
       <button data-component="price"><span>Price</span></button>
@@ -412,28 +417,9 @@ function componentsScreen() {
     </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="survey" aria-label="Previous slide">◀</button>
-    <button class="legacy-slide-arrow next" data-screen="pain" aria-label="Next slide">▶</button>
-    <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
-      <button data-action="about">about</button>
-      <button data-action="home">close</button>
-    </div>
-  </section>`;
-}
-
-function painScreen() {
-  return `<section class="legacy-lesson-slide pain-slide" aria-label="Locating your prospect's hidden pain">
-    <h1>LOCATING YOUR PROSPECT'S HIDDEN PAIN</h1>
-    <img class="pain-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
-    <img class="pain-prospect" src="assets/prospect-figure.png" alt="Prospect">
-    <button class="pain-clear" data-action="pain-clear">CLEAR</button>
-    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
-    <button class="legacy-slide-arrow previous" data-screen="components" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="painModel" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -443,6 +429,13 @@ function painScreen() {
 function painModelScreen() {
   return `<section class="legacy-lesson-slide pain-model-slide" aria-label="Hidden pain model">
     <img class="pain-model-base" src="assets/hidden-pain-base.png" alt="Locating your prospect's hidden pain">
+    <div class="pain-model-mask pain-model-mask-title" aria-hidden="true"></div>
+    <div class="pain-model-mask pain-model-mask-logo" aria-hidden="true"></div>
+    <div class="pain-model-mask pain-model-mask-footer" aria-hidden="true"></div>
+    <div class="pain-model-mask pain-model-mask-t3-artifact" aria-hidden="true"></div>
+    <div class="pain-model-mask pain-model-mask-old-next" aria-hidden="true"></div>
+    <h1>Locating Your Prospect's Hidden Pain</h1>
+    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <div class="pain-model-reveals" aria-hidden="true">
       <div class="pain-checklist">
         <button class="pain-choice pain-choice-cost" data-pain-choice="cost"><span class="pain-box"></span><span class="pain-number">1.</span> cost</button>
@@ -475,13 +468,22 @@ function painModelScreen() {
     <button class="pain-model-hotspot pain-model-clear" data-action="pain-model-clear" aria-label="Clear"></button>
     <button class="pain-model-hotspot pain-model-back" data-screen="components" aria-label="Previous slide"></button>
     <button class="pain-model-hotspot pain-model-next" data-screen="painMemory" aria-label="Next slide"></button>
+    <button class="pain-model-clear-live" data-action="pain-model-clear">CLEAR</button>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    <button class="legacy-slide-arrow previous" data-screen="components" aria-label="Previous slide">&#9664;</button>
+    <button class="legacy-slide-arrow next" data-screen="painMemory" aria-label="Next slide">&#9654;</button>
+    <div class="legacy-slide-footer">
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
   </section>`;
 }
 
 function painMemoryScreen() {
   const boxes = Array.from({ length: 7 }, (_, i) => `<button class="lyp-box lyp-box-${i + 1}" data-lyp-box="${i + 1}" aria-label="Memory box ${i + 1}"></button>`).join("");
   return `<section class="legacy-lesson-slide pain-memory-slide" aria-label="Locating your prospect's hidden pain memory model">
-    <h1>LOCATING YOUR PROSPECT'S HIDDEN PAIN</h1>
+    <h1>Locating Your Prospect's Hidden Pain</h1>
     <img class="pain-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <img class="lyp-head" src="assets/lyp-head.png" alt="Active and latent memory">
     <div class="lyp-reveals" aria-hidden="true">
@@ -527,8 +529,7 @@ function motivatesScreen() {
     <button class="legacy-slide-arrow previous" data-screen="painMemory" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="hooverRiver" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -542,18 +543,17 @@ function hooverScreen(stage = "compare") {
   const previous = isRiver ? "motivates" : isLake ? "hooverRiver" : "hooverLake";
   const next = isRiver ? "hooverLake" : isLake ? "hooverCompare" : "ladder";
   return `<section class="legacy-lesson-slide hoover-slide hoover-${stage}" aria-label="Hoover Dam Analogy">
-    ${isRiver ? `<div class="hoover-river-title"><div>LADDER OF ABSTRACTION:</div><strong>Hoover Dam – River View</strong></div>` : ""}
+    ${isRiver ? `<div class="hoover-river-title"><div>Ladder Of Abstraction:</div><strong>Hoover Dam – River View</strong></div>` : ""}
     ${isLake ? `<div class="hoover-river-title hoover-lake-title"><div>LADDER OF ABSTRACTION:</div><strong>Hoover Dam – Lake View</strong></div>` : ""}
     ${isCompare ? `<div class="hoover-river-title hoover-side-title"><div>LADDER OF ABSTRACTION:</div><strong>Hoover Dam – Side-by-Side</strong></div>` : ""}
-    ${!isRiver && !isLake && !isCompare ? `<h1>Introduction: Ladder of Abstraction – Hoover Dam Analogy</h1>` : ""}
+    ${!isRiver && !isLake && !isCompare ? `<h1>Introduction: Ladder Of Abstraction – Hoover Dam Analogy</h1>` : ""}
     <img class="${isRiver || isLake || isCompare ? "legacy-slide-logo" : "hoover-logo"}" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <div class="hoover-watermark">Hoover Dam</div>
     ${isRiver ? `<img class="hoover-river-photo" src="assets/hoover-river-view.png" alt="Hoover Dam river view">
     <div class="hoover-river-text"><strong>Differentiation:</strong><br>Build the Client's<br>Perspective.</div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>` : ""}
@@ -561,8 +561,7 @@ function hooverScreen(stage = "compare") {
     <div class="hoover-river-text hoover-lake-text"><strong>Differentiation:</strong><br>Build the Client's<br>Perspective.</div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>` : ""}
@@ -573,8 +572,7 @@ function hooverScreen(stage = "compare") {
     </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>` : ""}
@@ -592,7 +590,7 @@ function hooverScreen(stage = "compare") {
 
 function ladderScreen() {
   return `<section class="legacy-lesson-slide loa-slide show-root" aria-label="Ladder of Abstraction">
-    <h1>Ladder of Abstraction</h1>
+    <h1>Ladder Of Abstraction</h1>
     <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <div class="loa-mode-icons" aria-hidden="true"><span>D</span><span>R</span><span>H</span><span class="active">L</span></div>
     <div class="loa-tree">
@@ -648,8 +646,7 @@ function ladderScreen() {
     <button class="legacy-slide-arrow previous" data-screen="hooverCompare" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="differentiate" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -658,7 +655,7 @@ function ladderScreen() {
 
 function differentiateScreen() {
   return `<section class="legacy-lesson-slide differentiate-slide" aria-label="Differentiate">
-    <h1>DIFFERENTIATE</h1>
+    <h1>Differentiate</h1>
     <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <svg class="differentiate-swoosh" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
       <path class="differentiate-swoosh-top" d="M24 39 C42 17 66 4 85 6"/>
@@ -675,8 +672,7 @@ function differentiateScreen() {
     <button class="legacy-slide-arrow previous" data-screen="ladder" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="competition" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -706,8 +702,7 @@ function competitionScreen() {
     <button class="legacy-slide-arrow previous" data-screen="differentiate" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="preCall" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -743,8 +738,7 @@ function preCallScreen() {
     <button class="legacy-slide-arrow previous" data-screen="competition" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="knowledgePower" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -753,7 +747,7 @@ function preCallScreen() {
 
 function knowledgePowerScreen() {
   return `<section class="legacy-lesson-slide kip-slide" aria-label="Knowledge Is Power">
-    <h1>KNOWLEDGE IS POWER – Four Levels of Knowing</h1>
+    <h1>Knowledge Is Power – Four Levels Of Knowing</h1>
     <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <div class="kip-boxes" aria-label="Four levels of knowing">
       <button class="kip-box kip-know" data-kip="know"><span>Know</span></button>
@@ -768,53 +762,7 @@ function knowledgePowerScreen() {
     <button class="legacy-slide-arrow previous" data-screen="preCall" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="gamesZones" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
-      <button data-action="about">about</button>
-      <button data-action="home">close</button>
-    </div>
-  </section>`;
-}
-
-function gamesZonesScreenPlaceholder() {
-  return `<section class="legacy-lesson-slide games-zones-slide" aria-label="Games and Zones">
-    <div class="legacy-slide-arcs" aria-hidden="true"></div>
-    <h1>Games and Zones</h1>
-    <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
-    <div class="games-stage">
-      <div class="games-video-card">
-        <video controls preload="metadata" poster="assets/wedge-logo.gif" aria-label="Games and Zones original training video">
-          <source src="assets/games-zones.flv" type="video/x-flv">
-        </video>
-        <div class="games-video-fallback">
-          <h2>Original training video</h2>
-          <p>The Flash version used this lesson as a video segment. The original FLV file is preserved here in the prototype assets.</p>
-          <a href="assets/games-zones.flv" download>Open / download original video</a>
-        </div>
-      </div>
-      <aside class="games-panel">
-        <h2>Lesson guide</h2>
-        <button class="games-card" data-zone="comfort">
-          <strong>Comfort Zone</strong>
-          <span>Where existing relationships, habits, and safe conversations live.</span>
-        </button>
-        <button class="games-card" data-zone="stretch">
-          <strong>Stretch Zone</strong>
-          <span>Where the producer asks questions that reveal hidden pain.</span>
-        </button>
-        <button class="games-card" data-zone="danger">
-          <strong>Danger Zone</strong>
-          <span>Where the prospect feels pressure, risk, or loss of control.</span>
-        </button>
-        <p id="games-zone-detail">Click a zone to reveal the coaching point.</p>
-      </aside>
-    </div>
-    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
-    <button class="legacy-slide-arrow previous" data-screen="knowledgePower" aria-label="Previous slide">â—€</button>
-    <button class="legacy-slide-arrow next" data-screen="gamesZones" aria-label="Next slide">â–¶</button>
-    <div class="legacy-slide-footer">
-      <p>Â©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -823,7 +771,7 @@ function gamesZonesScreenPlaceholder() {
 
 function gamesZonesScreen() {
   return `<section class="legacy-lesson-slide games-zones-slide" aria-label="Games and Zones">
-    <h1>GAMES AND ZONES</h1>
+    <h1>Games And Zones</h1>
     <p class="games-zones-subtitle">How big of a game are you playing?</p>
     <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <div class="games-zones-stack" aria-label="Games and zones size diagram">
@@ -837,8 +785,7 @@ function gamesZonesScreen() {
     <button class="legacy-slide-arrow previous" data-screen="knowledgePower" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="rulesWedge" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -865,7 +812,7 @@ function rulesWedgeScreen() {
   }).join("");
 
   return `<section class="legacy-lesson-slide rules-wedge-slide row-page-one" aria-label="Rules of The Wedge">
-    <h1>Rules of The Wedge<sup>®</sup></h1>
+    <h1>Rules Of The Wedge<sup>®</sup></h1>
     <img class="legacy-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
     <div class="row-rules">${buttons}</div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
@@ -877,8 +824,7 @@ function rulesWedgeScreen() {
     <button class="legacy-slide-arrow previous" data-screen="gamesZones" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="salesCall" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
-      <p>©Copyright 2004-2010 The Wedge Group. All rights reserved. Information presented is confidential and/or privileged material.</p>
-      <button data-action="calculator">calculator</button>
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>
@@ -896,25 +842,6 @@ function openAbout() {
   modal.showModal();
 }
 
-function openCalculator() {
-  modalContent.innerHTML = `<span class="eyebrow">Utility</span><h2>Calculator</h2><input class="calc-display" id="calc-display" value="" inputmode="decimal" aria-label="Calculator display" readonly><div class="calculator-grid">${["7","8","9","÷","4","5","6","×","1","2","3","−","0",".","=","+","C"].map(x => `<button data-calc="${x}">${x}</button>`).join("")}</div>`;
-  modal.showModal();
-}
-
-function handleCalculator(key) {
-  const display = document.querySelector("#calc-display");
-  if (key === "C") { display.value = ""; return; }
-  if (key === "=") {
-    try {
-      const safe = display.value.replaceAll("×", "*").replaceAll("÷", "/").replaceAll("−", "-");
-      if (!/^[0-9+*/.() -]+$/.test(safe)) throw new Error();
-      display.value = String(Function(`"use strict"; return (${safe})`)());
-    } catch { display.value = "Error"; }
-    return;
-  }
-  if (display.value === "Error") display.value = "";
-  display.value += key;
-}
 
 function revealRowRule(slide, number) {
   if (!slide) return;
@@ -986,7 +913,6 @@ document.addEventListener("click", event => {
   if (target.hasAttribute("data-quadrant")) target.classList.toggle("revealed");
   if (target.dataset.example) { ladderExample = target.dataset.example; render(); }
   if (target.dataset.node) document.querySelector("#tree-detail").textContent = `${target.dataset.node}: ask what evidence supports this level, then move one level more specific.`;
-  if (target.dataset.calc) handleCalculator(target.dataset.calc);
   if (target.dataset.component) target.classList.add("revealed");
   if (target.dataset.serviceType) target.classList.add("revealed");
   if (target.dataset.lypBox) {
@@ -1060,7 +986,6 @@ document.addEventListener("click", event => {
     }
     case "next": navigate(screens[Math.min(screens.length - 1, screens.indexOf(current) + 1)]); break;
     case "about": openAbout(); break;
-    case "calculator": openCalculator(); break;
     case "open-pooge": {
       const overlay = document.querySelector(".pooge-overlay");
       overlay.hidden = false;
@@ -1069,7 +994,7 @@ document.addEventListener("click", event => {
     }
     case "close-pooge": {
       document.querySelector(".pooge-overlay").hidden = true;
-      document.querySelector(".pooge-hotspot").focus();
+      document.querySelector(".company-pooge-button")?.focus();
       break;
     }
     case "close-modal": modal.close(); break;
