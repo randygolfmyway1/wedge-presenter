@@ -883,9 +883,20 @@ p { line-height: 1.6; }
   display: none;
 }
 .pain-model-slide {
-  background: #fff url("assets/hidden-pain-base.png") 0 0 / 100% 100% no-repeat;
+  background: #fff;
   container-type: normal;
   transform: translateZ(0);
+}
+.pain-model-stage {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  aspect-ratio: 983 / 698;
+  transform: translateX(-50%);
+  background: #fff url("assets/hidden-pain-base.png") 0 0 / 100% 100% no-repeat;
+  overflow: visible;
 }
 .pain-model-mask {
   position: absolute;
@@ -993,14 +1004,14 @@ p { line-height: 1.6; }
   top: 25.6%;
   width: 20.2%;
   aspect-ratio: 1.7 / 1;
-  padding: 1.35cqw 1.1cqw .9cqw 2.2cqw;
+  padding: 1.48cqw 1.18cqw 1.02cqw 2.55cqw;
   border: .14cqw solid #111;
   border-radius: 50%;
   background: #fff;
   color: #050505;
-  font-size: 1.02cqw;
+  font-size: .96cqw;
   font-weight: 700;
-  line-height: 1.06;
+  line-height: 1.13;
   pointer-events: auto;
 }
 .pain-checklist::after {
@@ -1147,16 +1158,21 @@ p { line-height: 1.6; }
   top: 35.6%;
   width: 5.9%;
   aspect-ratio: 55 / 368;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #cf626b;
 }
 .pain-problem-block span {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #050505;
   font-size: 2.45cqw;
   font-weight: 900;
   letter-spacing: .02cqw;
+  line-height: 1;
+  text-align: center;
   writing-mode: vertical-rl;
   text-orientation: mixed;
 }
@@ -1221,7 +1237,7 @@ p { line-height: 1.6; }
 }
 .pain-fix-block {
   left: 69%;
-  top: 36.4%;
+  top: 34.4%;
   width: 15.6%;
   aspect-ratio: 189 / 64;
   background: url("assets/pain-fixit.png") 0 0 / contain no-repeat;
@@ -1257,7 +1273,7 @@ p { line-height: 1.6; }
 }
 .pain-condition-label {
   position: absolute;
-  left: 70.6%;
+  left: 73.6%;
   top: 82.1%;
   color: #050505;
   font-size: 2.45cqw;
@@ -1385,6 +1401,16 @@ p { line-height: 1.6; }
   background: #fff;
   container-type: normal;
 }
+.pain-memory-stage {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  aspect-ratio: 983 / 698;
+  transform: translateX(-50%);
+  overflow: visible;
+}
 .pain-memory-slide > h1 {
   left: 6.5%;
   top: 4.3%;
@@ -1411,7 +1437,6 @@ p { line-height: 1.6; }
   pointer-events: none;
 }
 .lyp-stanford-card,
-.lyp-conditions-cover,
 .lyp-active-line,
 .lyp-problem-arrow,
 .lyp-solution-arrow,
@@ -1479,18 +1504,6 @@ p { line-height: 1.6; }
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.08cqw;
   letter-spacing: .44cqw;
-}
-.lyp-conditions-cover {
-  position: absolute;
-  left: 60.8%;
-  top: 33.2%;
-  width: 19.2%;
-  height: 13.2%;
-  background: #fff;
-  border-radius: 2cqw;
-}
-.pain-memory-slide.conditions-closed .lyp-conditions-cover {
-  opacity: 1;
 }
 .lyp-active-line {
   position: absolute;
@@ -1569,8 +1582,10 @@ p { line-height: 1.6; }
   top: 24.1%;
   width: 3.35%;
   height: 13.4%;
+  display: grid;
+  place-items: center;
   writing-mode: vertical-rl;
-  padding-top: .35cqw;
+  padding-top: 0;
   box-sizing: border-box;
 }
 .lyp-problem-arrow::before {
@@ -1606,8 +1621,10 @@ p { line-height: 1.6; }
   top: 21.3%;
   width: 3.25%;
   height: 10.6%;
+  display: grid;
+  place-items: center;
   writing-mode: vertical-rl;
-  padding-top: 1.05cqw;
+  padding-top: 0;
 }
 .lyp-hope-arrow::after {
   content: "";
@@ -1684,10 +1701,10 @@ p { line-height: 1.6; }
   outline: 0;
 }
 .lyp-active-hotspot {
-  left: 44.1%;
-  top: 52.1%;
-  width: 9.2%;
-  height: 9.4%;
+  left: 38.8%;
+  top: 49.8%;
+  width: 11.8%;
+  height: 13.2%;
 }
 .lyp-box-seed {
   left: 29%;
@@ -1720,12 +1737,6 @@ p { line-height: 1.6; }
 .pain-memory-slide.show-stanford .lyp-stanford-close {
   opacity: 1;
   pointer-events: auto;
-}
-.lyp-conditions-close {
-  left: 74.2%;
-  top: 40.6%;
-  width: 3%;
-  height: 4%;
 }
 .lyp-latent-hotspot {
   left: 51.1%;
@@ -1921,10 +1932,10 @@ p { line-height: 1.6; }
 }
 .hoover-river-photo {
   position: absolute;
-  left: 17.4%;
-  top: 12.4%;
-  width: 45.7%;
-  height: 83.8%;
+  left: 18.2%;
+  top: 16.2%;
+  width: 43.8%;
+  height: 77.8%;
   object-fit: cover;
   z-index: 3;
 }
@@ -1997,9 +2008,9 @@ p { line-height: 1.6; }
 }
 .hoover-lake-photo {
   position: absolute;
-  left: 12.9%;
-  top: 22%;
-  width: 67%;
+  left: 23.2%;
+  top: 16.8%;
+  width: 53.6%;
   height: auto;
   object-fit: contain;
   z-index: 3;
@@ -2232,7 +2243,7 @@ p { line-height: 1.6; }
   z-index: 6;
 }
 .loa-mode-icons span,
-.loa-step-buttons button {
+.strategy-nav-buttons button {
   width: 1.55cqw;
   height: 1.55cqw;
   border: .14cqw solid #c8c8c8;
@@ -2245,7 +2256,7 @@ p { line-height: 1.6; }
   font-weight: 900;
 }
 .loa-mode-icons .active,
-.loa-step-buttons button:nth-child(2) {
+.strategy-nav-buttons button.active {
   background: radial-gradient(circle at 35% 30%, #ffe4ad, #ec9700 48%, #a65c00 100%);
 }
 .loa-tree {
@@ -2253,7 +2264,7 @@ p { line-height: 1.6; }
   left: 12.4%;
   top: 13.5%;
   width: 74%;
-  height: 68%;
+  height: 76%;
   z-index: 3;
 }
 .loa-lines {
@@ -2419,7 +2430,7 @@ p { line-height: 1.6; }
 .loa-slide.show-blue-4 .loa-blue-lines-1,
 .loa-slide.show-blue-4 .loa-blue-lines-2,
 .loa-slide.show-blue-4 .loa-blue-lines-3,
-.loa-step-buttons {
+.strategy-nav-buttons {
   position: absolute;
   right: 17.7%;
   bottom: 12%;
@@ -2528,7 +2539,9 @@ p { line-height: 1.6; }
 }
 .differentiate-box span {
   opacity: 0;
-  font-size: 4.1cqw;
+  color: #050505;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.32cqw;
   line-height: 1.05;
   font-weight: 950;
 }
@@ -2601,10 +2614,10 @@ p { line-height: 1.6; }
 .kyc-grid-wrap {
   position: absolute;
   z-index: 2;
-  left: 29.8%;
-  top: 12.8%;
-  width: 37.6%;
-  height: 70.4%;
+  left: 26%;
+  top: 8.8%;
+  width: 45.1%;
+  height: 84.5%;
 }
 .kyc-grid-wrap h2 {
   position: absolute;
@@ -3196,20 +3209,20 @@ p { line-height: 1.6; }
 }
 
 .games-zone-big {
-  width: 23.6cqw;
-  font-size: 3.01cqw;
+  width: 19.6cqw;
+  font-size: 2.5cqw;
   letter-spacing: .16cqw;
 }
 
 .games-zone-medium {
-  width: 17.4cqw;
-  font-size: 2.01cqw;
+  width: 14.45cqw;
+  font-size: 1.67cqw;
   letter-spacing: .095cqw;
 }
 
 .games-zone-small {
-  width: 10cqw;
-  font-size: 1.15cqw;
+  width: 8.3cqw;
+  font-size: .96cqw;
   letter-spacing: .05cqw;
 }
 
@@ -3361,9 +3374,10 @@ p { line-height: 1.6; }
   max-width: 47cqw;
   margin: 0;
   color: #050505;
-  font-size: 2.45cqw;
-  line-height: 1.18;
-  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.32cqw;
+  line-height: 1.08;
+  font-weight: 950;
 }
 
 .row-rule.revealed p {
@@ -3661,7 +3675,7 @@ dialog::backdrop { background: rgba(20, 28, 43, .62); backdrop-filter: blur(4px)
 .legacy-lesson-slide .legacy-slide-arrow {
   z-index: 14 !important;
   left: auto !important;
-  bottom: 42px !important;
+  bottom: 90px !important;
   width: auto !important;
   height: auto !important;
   border: 0 !important;
@@ -3670,7 +3684,7 @@ dialog::backdrop { background: rgba(20, 28, 43, .62); backdrop-filter: blur(4px)
   background: transparent !important;
   box-shadow: none !important;
   font-family: Arial, Helvetica, sans-serif !important;
-  font-size: 23px !important;
+  font-size: 35px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   text-shadow: none !important;
@@ -3764,6 +3778,68 @@ dialog::backdrop { background: rgba(20, 28, 43, .62); backdrop-filter: blur(4px)
   top: 14px !important;
   width: 74px !important;
   height: auto !important;
+}
+
+/* 16:9 layout refinement: How Is Your Company Better */
+.company-better-slide .company-better-prompt {
+  left: 7% !important;
+  right: 7% !important;
+  top: 15.4% !important;
+  font-size: 1.86cqw !important;
+  line-height: 1.22 !important;
+}
+
+.company-better-slide .company-better-grid {
+  left: 23.8% !important;
+  top: 26.6% !important;
+  width: 55.8% !important;
+  height: 65.2% !important;
+}
+
+.company-better-slide .company-pooge-button {
+  left: 5.4% !important;
+  bottom: 12.5% !important;
+}
+
+/* 16:9 layout refinement: 3 Major Components service branch */
+.components-slide .service-branches {
+  top: 62.8% !important;
+}
+
+.components-slide .reactive-line {
+  height: 10.8cqw !important;
+  transform: rotate(54deg) !important;
+}
+
+.components-slide .proactive-line {
+  height: 9.2cqw !important;
+  transform: rotate(-52deg) !important;
+}
+
+.components-slide .service-oval {
+  top: 5.1cqw !important;
+}
+
+/* 16:9 layout refinement: Hidden Pain model */
+.pain-model-stage > h1 {
+  position: absolute !important;
+  z-index: 13 !important;
+  left: -4.9% !important;
+  top: 4.3% !important;
+  margin: 0 !important;
+  color: var(--presenter-title-color) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 40px !important;
+  font-weight: var(--presenter-title-weight) !important;
+  line-height: 1.05 !important;
+  letter-spacing: 0 !important;
+  white-space: nowrap !important;
+}
+
+.pain-model-stage .legacy-slide-logo {
+  right: -13.1% !important;
+  top: 14px !important;
+  width: 74px !important;
 }
 
 /* Slide-specific arrow visibility corrections after visual QA. */

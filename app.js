@@ -51,6 +51,14 @@ function render() {
   app.focus({ preventScroll: true });
 }
 
+function strategyNavButtons(activeScreen) {
+  return `<div class="strategy-nav-buttons" aria-label="Strategy page shortcuts">
+    <button class="${activeScreen === "preCall" ? "active" : ""}" data-screen="preCall">1</button>
+    <button class="${activeScreen === "ladder" ? "active" : ""}" data-screen="ladder">2</button>
+    <button class="${activeScreen === "competition" ? "active" : ""}" data-screen="competition">3</button>
+  </div>`;
+}
+
 function revealPainMemory(slide, reveal) {
   if (!slide || !reveal) return;
   if (reveal === "boxes") {
@@ -428,6 +436,7 @@ function componentsScreen() {
 
 function painModelScreen() {
   return `<section class="legacy-lesson-slide pain-model-slide" aria-label="Hidden pain model">
+    <div class="pain-model-stage">
     <img class="pain-model-base" src="assets/hidden-pain-base.png" alt="Locating your prospect's hidden pain">
     <div class="pain-model-mask pain-model-mask-title" aria-hidden="true"></div>
     <div class="pain-model-mask pain-model-mask-logo" aria-hidden="true"></div>
@@ -469,6 +478,7 @@ function painModelScreen() {
     <button class="pain-model-hotspot pain-model-back" data-screen="components" aria-label="Previous slide"></button>
     <button class="pain-model-hotspot pain-model-next" data-screen="painMemory" aria-label="Next slide"></button>
     <button class="pain-model-clear-live" data-action="pain-model-clear">CLEAR</button>
+    </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="components" aria-label="Previous slide">&#9664;</button>
     <button class="legacy-slide-arrow next" data-screen="painMemory" aria-label="Next slide">&#9654;</button>
@@ -485,6 +495,7 @@ function painMemoryScreen() {
   return `<section class="legacy-lesson-slide pain-memory-slide" aria-label="Locating your prospect's hidden pain memory model">
     <h1>Locating Your Prospect's Hidden Pain</h1>
     <img class="pain-slide-logo" src="assets/wedge-logo.gif" alt="The Wedge.net">
+    <div class="pain-memory-stage">
     <img class="lyp-head" src="assets/lyp-head.png" alt="Active and latent memory">
     <div class="lyp-reveals" aria-hidden="true">
       <div class="lyp-stanford-card">
@@ -492,7 +503,6 @@ function painMemoryScreen() {
         <div class="stanford-word">STANFORD</div>
         <div class="stanford-subword">UNIVERSITY</div>
       </div>
-      <div class="lyp-conditions-cover"></div>
       <div class="lyp-active-line"></div>
       <div class="lyp-boxes">${boxes}</div>
       <div class="lyp-problem-arrow">Problem</div>
@@ -507,7 +517,6 @@ function painMemoryScreen() {
     <button class="lyp-hotspot lyp-active-hotspot" data-lyp-reveal="stanford" aria-label="Active memory"></button>
     <button class="lyp-hotspot lyp-box-seed" data-lyp-reveal="boxes" aria-label="Reveal active memory boxes"></button>
     <button class="lyp-hotspot lyp-stanford-close" data-lyp-reveal="close-stanford" aria-label="Close Stanford"></button>
-    <button class="lyp-hotspot lyp-conditions-close" data-lyp-reveal="close-conditions" aria-label="Close Conditions"></button>
     <button class="lyp-hotspot lyp-latent-hotspot" data-lyp-reveal="problem" aria-label="Latent memory"></button>
     <button class="lyp-hotspot lyp-problem-hotspot" data-lyp-reveal="solution" aria-label="Reveal solution"></button>
     <button class="lyp-hotspot lyp-solution-hotspot" data-lyp-reveal="hope" aria-label="Reveal hope"></button>
@@ -515,6 +524,7 @@ function painMemoryScreen() {
     <button class="lyp-hotspot lyp-proactive-hotspot" data-lyp-reveal="dialog" aria-label="Open proactive dialogue"></button>
     <button class="lyp-hotspot lyp-dialog-close" data-lyp-reveal="close-dialog" aria-label="Close dialogue"></button>
     <button class="lyp-hotspot lyp-clear" data-action="pain-memory-clear" aria-label="Clear"></button>
+    </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="painModel" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="motivates" aria-label="Next slide">▶</button>
@@ -563,7 +573,7 @@ function hooverScreen(stage = "compare") {
       <button data-action="about">about</button>
       <button data-action="home">close</button>
     </div>` : ""}
-    ${isLake ? `<img class="hoover-lake-photo" src="assets/hoover-lake-side.jpg" alt="Hoover Dam lake side">
+    ${isLake ? `<img class="hoover-lake-photo" src="assets/hoover-lake-view-hq.png" alt="Hoover Dam lake side">
     <div class="hoover-river-text hoover-lake-text"><strong>Differentiation:</strong><br>Build the Client's<br>Perspective.</div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <div class="legacy-slide-footer">
@@ -604,14 +614,14 @@ function ladderScreen() {
         <g class="loa-line-set loa-top-lines"><path d="M54 8 V15 H38 V22"/><path d="M54 15 H68 V22"/></g>
         <g class="loa-line-set loa-blue-lines-1"><path d="M38 26 V33 H28 V37"/><path d="M38 33 H48 V37"/></g>
         <g class="loa-line-set loa-blue-lines-2"><path d="M28 41 V51"/></g>
-        <g class="loa-line-set loa-blue-driver-lines"><path d="M48 41 V47 H43 V51"/><path d="M48 47 H60 V51"/></g>
+        <g class="loa-line-set loa-blue-driver-lines"><path d="M48 41 V48.5 H43 V51"/><path d="M48 48.5 H60 V51"/></g>
         <g class="loa-line-set loa-blue-lines-3"><path d="M28 56 V62 H21 V66"/><path d="M28 62 H35 V66"/></g>
         <g class="loa-line-set loa-blue-teams-lines"><path d="M60 56 V62 H49 V66"/><path d="M60 62 H66 V66"/></g>
-        <g class="loa-line-set loa-blue-direct-lines"><path d="M20 70 V76 H14 V82"/><path d="M20 76 H32 V82"/></g>
-        <g class="loa-line-set loa-blue-indirect-lines"><path d="M35 70 V76 H48 V82"/><path d="M35 76 H65 V82"/><path d="M35 76 H81 V82"/></g>
+        <g class="loa-line-set loa-blue-direct-lines"><path d="M20 70 V78 H14 V81"/><path d="M20 78 H32 V81"/></g>
+        <g class="loa-line-set loa-blue-indirect-lines"><path d="M35 70 V78 H48 V81"/><path d="M35 78 H65 V81"/><path d="M35 78 H81 V81"/></g>
         <g class="loa-line-set loa-orange-lines-1"><path d="M68 26 V33 H51 V37"/><path d="M68 33 H80 V37"/></g>
-        <g class="loa-line-set loa-orange-lines-2"><path d="M51 41 V47 H42 V52"/><path d="M51 47 H61 V52"/></g>
-        <g class="loa-line-set loa-orange-lines-3"><path d="M43 56 V67"/><path d="M38 71 V77 H27 V82"/><path d="M38 77 H43 V82"/><path d="M38 77 H59 V82"/></g>
+        <g class="loa-line-set loa-orange-lines-2"><path d="M51 41 V48.5 H42 V52"/><path d="M51 48.5 H61 V52"/></g>
+        <g class="loa-line-set loa-orange-lines-3"><path d="M43 56 V67"/><path d="M38 71 V79 H27 V82"/><path d="M38 79 H43 V82"/><path d="M38 79 H59 V82"/></g>
         <g class="loa-line-set loa-orange-owner-lines"><path d="M80 41 V52"/><path d="M80 56 V67"/></g>
       </svg>
       <button class="loa-node green root" data-loa-action="next">LOSS<br>CONTROL</button>
@@ -642,12 +652,7 @@ function ladderScreen() {
       <button class="loa-node orange rear" data-loa-action="next">REAR</button>
       <button class="loa-node orange send-all-drivers" data-loa-action="next">SEND TO<br>ALL DRIVERS</button>
     </div>
-    <div class="loa-step-buttons" aria-label="Ladder steps">
-      <button data-loa-action="next">1</button>
-      <button data-loa-action="next">2</button>
-      <button data-loa-action="all">3</button>
-    </div>
-    <button class="loa-overview" data-loa-action="clear">OVERVIEW</button>
+    ${strategyNavButtons("ladder")}
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="hooverCompare" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="differentiate" aria-label="Next slide">▶</button>
@@ -705,6 +710,7 @@ function competitionScreen() {
       <div class="kyc-grid">${rows}</div>
     </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    ${strategyNavButtons("competition")}
     <button class="legacy-slide-arrow previous" data-screen="differentiate" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="preCall" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">
@@ -741,6 +747,7 @@ function preCallScreen() {
       <p>Carrier:</p>
     </div>
     <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
+    ${strategyNavButtons("preCall")}
     <button class="legacy-slide-arrow previous" data-screen="competition" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="knowledgePower" aria-label="Next slide">▶</button>
     <div class="legacy-slide-footer">

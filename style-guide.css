@@ -240,6 +240,20 @@ a {
   line-height: 1.2;
 }
 
+.reveal-box-copy {
+  width: 190px;
+  min-height: 74px;
+  margin: 0;
+  border: 1px solid #050505;
+  display: grid;
+  place-items: center;
+  color: #050505;
+  font-size: 2.32cqw;
+  line-height: 1.05;
+  font-weight: 950;
+  text-align: center;
+}
+
 .footer-copy {
   color: var(--guide-muted);
   font-size: var(--slide-footer-size);

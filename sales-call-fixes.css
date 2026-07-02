@@ -2,7 +2,7 @@
 .top-flow { left: 4%; top: 11.1%; width: 72%; }
 .bottom-flow { left: 4%; width: 72%; }
 .process-node { font-size: 2cqw; }
-.problem-label { left: 20%; }
+.problem-label { left: 36%; }
 .solution-label { left: 4.5%; }
 .commitment-label { left: 36%; }
 .teaching-panel { left: 5%; top: 38.5%; width: 70%; font-size: 3.65cqw; }
@@ -909,26 +909,26 @@
 .philosophical-story-button {
   position: absolute;
   z-index: 7;
-  left: 15.3%;
-  top: 9.2%;
-  width: 4.1cqw;
-  height: 4.1cqw;
+  left: 14.75%;
+  top: 9.7%;
+  width: 5.2cqw;
+  height: 4.6cqw;
   display: grid;
   place-items: center;
-  border: .12cqw solid #d97600;
-  border-radius: 50% 50% 50% 8%;
+  border: 0;
+  border-radius: 0;
   padding: 0;
   color: #fff;
   background: linear-gradient(145deg, #ffbd42, #ec8000);
   box-shadow: .18cqw .2cqw #00000035, inset .12cqw .15cqw #ffffff66;
-  transform: rotate(45deg);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
   font-size: 1.35cqw;
   font-weight: 900;
 }
 
 .philosophical-story-button span {
   display: block;
-  transform: rotate(-45deg);
+  transform: translateY(-.42cqw);
 }
 
 .philosophical-story-button:hover,
