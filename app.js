@@ -515,8 +515,14 @@ function painMemoryScreen() {
     <button class="lyp-hotspot lyp-proactive-hotspot" data-lyp-reveal="dialog" aria-label="Open proactive dialogue"></button>
     <button class="lyp-hotspot lyp-dialog-close" data-lyp-reveal="close-dialog" aria-label="Close dialogue"></button>
     <button class="lyp-hotspot lyp-clear" data-action="pain-memory-clear" aria-label="Clear"></button>
+    <div class="legacy-t3-mark" aria-label="T3">T<sup>3</sup></div>
     <button class="legacy-slide-arrow previous" data-screen="painModel" aria-label="Previous slide">◀</button>
     <button class="legacy-slide-arrow next" data-screen="motivates" aria-label="Next slide">▶</button>
+    <div class="legacy-slide-footer">
+      <p>&copy;Copyright 2004-2026 The Wedge Group. All rights reserved.</p>
+      <button data-action="about">about</button>
+      <button data-action="home">close</button>
+    </div>
   </section>`;
 }
 

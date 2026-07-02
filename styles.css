@@ -349,8 +349,8 @@ p { line-height: 1.6; }
 
 .legacy-lesson-slide {
   position: relative;
-  width: min(calc(100vw - 20px), calc((100vh - 20px) * 1.40831));
-  aspect-ratio: 983 / 698;
+  width: min(calc(100vw - 20px), calc((100vh - 20px) * 1.77778));
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   color: #050505;
   background: #fff;
@@ -3655,4 +3655,118 @@ dialog::backdrop { background: rgba(20, 28, 43, .62); backdrop-filter: blur(4px)
 .objective-content li {
   font-size: inherit !important;
   line-height: 1.12 !important;
+}
+
+/* Style guide enforcement: shared navigation arrows and footer utility buttons */
+.legacy-lesson-slide .legacy-slide-arrow {
+  z-index: 14 !important;
+  left: auto !important;
+  bottom: 42px !important;
+  width: auto !important;
+  height: auto !important;
+  border: 0 !important;
+  padding: 0 !important;
+  color: #9d2634 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 23px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
+  cursor: pointer !important;
+}
+
+.legacy-lesson-slide .legacy-slide-arrow.previous {
+  right: 86px !important;
+}
+
+.legacy-lesson-slide .legacy-slide-arrow.next {
+  right: 56px !important;
+}
+
+.legacy-lesson-slide .legacy-slide-arrow:hover,
+.legacy-lesson-slide .legacy-slide-arrow:focus-visible {
+  color: #c51624 !important;
+  outline: none !important;
+}
+
+.legacy-slide-footer button,
+.legacy-menu-footer button {
+  min-width: 7.1cqw !important;
+  border: 0 !important;
+  border-radius: .35cqw .35cqw 0 0 !important;
+  padding: .45cqw .7cqw !important;
+  color: #fff !important;
+  background: #075a9c !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 1.15cqw !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-transform: lowercase !important;
+  cursor: pointer !important;
+}
+
+.legacy-slide-footer button:hover,
+.legacy-slide-footer button:focus-visible,
+.legacy-menu-footer button:hover,
+.legacy-menu-footer button:focus-visible {
+  background: #0b6bb8 !important;
+  outline: .16cqw solid rgba(7, 90, 156, .35) !important;
+  outline-offset: .1cqw !important;
+}
+
+.legacy-lesson-slide .legacy-t3-mark {
+  z-index: 13 !important;
+  left: 28px !important;
+  bottom: 40px !important;
+  color: #050505 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 42px !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  letter-spacing: -3px !important;
+}
+
+.legacy-lesson-slide .legacy-t3-mark sup {
+  font-size: .39em !important;
+  vertical-align: top !important;
+  letter-spacing: 0 !important;
+}
+
+.legacy-lesson-slide .legacy-slide-footer {
+  z-index: 13 !important;
+  left: 116px !important;
+  right: 32px !important;
+  bottom: 0 !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: end !important;
+  gap: 5px !important;
+}
+
+.legacy-lesson-slide .legacy-slide-footer p {
+  margin: 0 auto 7px 0 !important;
+  color: #050505 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+/* Style guide enforcement: shared Wedge logo placement */
+.legacy-lesson-slide .legacy-slide-logo,
+.legacy-lesson-slide .pain-slide-logo {
+  position: absolute !important;
+  z-index: 13 !important;
+  right: 24px !important;
+  top: 14px !important;
+  width: 74px !important;
+  height: auto !important;
+}
+
+/* Slide-specific arrow visibility corrections after visual QA. */
+.loa-slide .legacy-slide-arrow.previous {
+  display: block !important;
 }
